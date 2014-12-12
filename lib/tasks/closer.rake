@@ -8,8 +8,6 @@ unless defined?(Rails)
 end
 
 task :close => dependencies do |t, args|
-  format = ENV['FORMAT'] || 'html'
-
   options = [
     'DRIVER=' + (ENV['DRIVER'] || 'poltergeist'),
     'PAUSE=' + (ENV['PAUSE'] || '0'),
@@ -26,8 +24,16 @@ task :close => dependencies do |t, args|
     end
   end
 
-  output = "features/reports/index.html"
-  output = "test/reports" if format == 'junit'
+  format = ENV['FORMAT']
+  if format.to_s.lengh > 0
+    case format
+    when 'junit'
+      output = "test/reports" if format == 'junit'
+    else
+      output = "features/reports/index.html"
+    end
+    additional_format = "--format #{format} --out #{output}"
+  end
 
-  run "bundle exec cucumber --guess --quiet --no-multiline -r features --format pretty --format #{format} --out #{output} #{features.join(' ')} #{options}"
+  run "bundle exec cucumber --guess --quiet --no-multiline -r features --format pretty #{additional_format} #{features.join(' ')} #{options}"
 end
