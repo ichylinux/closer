@@ -24,7 +24,7 @@ task :close => dependencies do |t, args|
     end
   end
 
-  format = ENV['FORMAT']
+  format = ENV['FORMAT'] || 'Closer::Formatter::Html'
   if format.to_s.length > 0
     case format
     when 'junit'
