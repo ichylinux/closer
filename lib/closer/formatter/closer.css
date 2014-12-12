@@ -15,14 +15,18 @@
 .cucumber ol li.passed,
 td ol li.passed,
 th ol li.passed,
-.scenario.outline .step.skipped,
-.examples .step.passed {
+.scenario.outline .step.skipped {
   border-left: none;
   border-bottom: none;
   background: #FFFFFF;
   color: #000000;
 }
-
+.examples .step.passed {
+  border-left: solid 1px #999999;
+  border-bottom: solid 1px #999999;
+  background: #FFFFFF;
+  color: #000000;
+}
 .cucumber ol li.expand:hover, td ol li.expand:hover, th ol li.expand:hover {
   background: #F0F8FF;
 }
