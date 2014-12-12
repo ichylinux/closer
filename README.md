@@ -1,6 +1,6 @@
 # Closer
 
-TODO: Write a gem description
+Cucumber test execution tool
 
 ## Installation
 
@@ -20,7 +20,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+    $ rake close
 
 ## Contributing
 

@@ -1,4 +1,3 @@
-# coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'closer/version'
@@ -8,9 +7,9 @@ Gem::Specification.new do |spec|
   spec.version       = Closer::VERSION
   spec.authors       = ["ichy"]
   spec.email         = ["ichylinux@gmail.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
-  spec.homepage      = ""
+  spec.summary       = %q{Cucumber test execution tool}
+  spec.description   = %q{You can run cucumber test easily.}
+  spec.homepage      = "https://github.com/ichylinux/closer"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
