@@ -113,6 +113,11 @@ div.scenario td {
   padding: 5px;
 }
 
+.scenario.outline .step.skipped {
+  background: #FFFFFF;
+  color: #000000;
+}
+
 span.feature_subtitle {
   margin-left: 20px;
   color: #999999;
