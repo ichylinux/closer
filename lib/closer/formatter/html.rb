@@ -52,7 +52,7 @@ module Closer
         @builder << '<html>'
           @builder.head do
           @builder.meta('http-equiv' => 'Content-Type', :content => 'text/html;charset=utf-8')
-          @builder.title title
+          @builder.title 'Cucumber Features'
           inline_css
           inline_js
         end
@@ -61,7 +61,7 @@ module Closer
         @builder << '<div class="cucumber">'
         @builder.div(:id => 'cucumber-header') do
           @builder.div(:id => 'label') do
-            @builder.h1(title)
+            @builder.h1('Cucumber Features')
           end
           @builder.div(:id => 'summary') do
             @builder.p('',:id => 'totals')

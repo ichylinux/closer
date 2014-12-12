@@ -11,13 +11,6 @@ module Closer
         @_ruby_version_dir
       end
 
-      def title
-        ret = ENV['TITLE']
-        ret ||= Daddy.config.cucumber.title if Daddy.config.cucumber.title?
-        ret ||= 'Daddy'
-        ret
-      end
-      
       def feature_id
         @feature.file.gsub(/(\/|\.|\\)/, '_')
       end
