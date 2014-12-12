@@ -25,7 +25,7 @@ task :close => dependencies do |t, args|
   end
 
   format = ENV['FORMAT']
-  if format.to_s.lengh > 0
+  if format.to_s.length > 0
     case format
     when 'junit'
       output = "test/reports" if format == 'junit'
