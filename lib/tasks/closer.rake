@@ -28,7 +28,7 @@ task :close => dependencies do |t, args|
   if format.to_s.length > 0
     case format
     when 'junit'
-      output = "test/reports" if format == 'junit'
+      output = "test/reports"
     else
       output = "features/reports/index.html"
     end
