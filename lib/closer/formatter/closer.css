@@ -12,7 +12,11 @@
   margin: 5px 0px 5px 1.2em;
 }
 
-.cucumber ol li.passed, td ol li.passed, th ol li.passed {
+.cucumber ol li.passed,
+td ol li.passed,
+th ol li.passed,
+.scenario.outline .step.skipped,
+.examples .step.passed {
   border-left: none;
   border-bottom: none;
   background: #FFFFFF;
@@ -111,13 +115,6 @@ div.scenario table {
 div.scenario td {
   border: solid 1px #999999;
   padding: 5px;
-}
-
-.scenario.outline .step.skipped {
-  border-left: none;
-  border-bottom: none;
-  background: #FFFFFF;
-  color: #000000;
 }
 
 span.feature_subtitle {
