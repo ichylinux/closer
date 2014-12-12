@@ -179,8 +179,6 @@ module Closer
       end
 
       def scenario_name(keyword, name, file_colon_line, source_indent)
-        @step_number_in_scenario = 0
-
         @builder.span(:class => 'scenario_file', :style => 'display: none;') do
           @builder << file_colon_line
         end
@@ -479,11 +477,7 @@ module Closer
           display_keyword = keyword.strip + ' '
         else
           if keyword.strip == '*'
-            @step_number_in_scenario += 1
             display_keyword = ''
-            display_keyword << '0' if @step_number_in_scenario.to_s.size == 1
-            display_keyword << @step_number_in_scenario.to_s
-            display_keyword << '. '
           else
             display_keyword = keyword.strip + ' '
           end
