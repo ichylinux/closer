@@ -29,8 +29,10 @@ task :close => dependencies do |t, args|
     case format
     when 'junit'
       output = "test/reports"
+      FileUtils.mkdir_p(output)
     else
       output = "features/reports/index.html"
+      FileUtils.mkdir_p(File.dirname(output))
     end
     additional_format = "--format #{format} --out #{output}"
   end
