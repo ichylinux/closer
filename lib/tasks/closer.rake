@@ -35,5 +35,5 @@ task :close => dependencies do |t, args|
     additional_format = "--format #{format} --out #{output}"
   end
 
-  run "bundle exec cucumber --guess --quiet --no-multiline -r features --format pretty #{additional_format} #{features.join(' ')} #{options}"
+  fail unless system("bundle exec cucumber --guess --quiet --no-multiline -r features --format pretty #{additional_format} #{features.join(' ')} #{options}")
 end
