@@ -11,7 +11,7 @@ task :close => dependencies do |t, args|
   options = [
     'DRIVER=' + (ENV['DRIVER'] || 'poltergeist'),
     'PAUSE=' + (ENV['PAUSE'] || '0'),
-    'COVERAGE=' + (ENV['COVERAGE'] || 'true'),
+    'COVERAGE=' + (ENV['COVERAGE'] || 'false'),
     'ACCEPTANCE_TEST=true',
     'EXPAND=' + (ENV['EXPAND'] || 'true')
   ].join(' ')
