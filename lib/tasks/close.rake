@@ -29,7 +29,7 @@ task :close => dependencies do |t, args|
     dir = File.dirname(features.first)
     feature_dir = dir == '.' ? File.basename(features.first) : dir
   end
-  puts "using features in #{feature_dir}"
+  puts "using features in directory #{feature_dir}"
 
   format = ENV['FORMAT'] || 'Closer::Formatter::Html'
   unless format.empty?
