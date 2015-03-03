@@ -8,14 +8,6 @@ unless defined?(Rails)
 end
 
 task :close => dependencies do |t, args|
-  options = [
-    'DRIVER=' + (ENV['DRIVER'] || 'poltergeist'),
-    'PAUSE=' + (ENV['PAUSE'] || '0'),
-    'COVERAGE=' + (ENV['COVERAGE'] || 'false'),
-    'ACCEPTANCE_TEST=true',
-    'EXPAND=' + (ENV['EXPAND'] || 'true')
-  ].join(' ')
-  
   features = []
   ARGV[1..-1].each do |arg|
     unless arg.index('=')
@@ -55,5 +47,14 @@ task :close => dependencies do |t, args|
     features.join(' ')
   ].join(' ')
 
+  options = [
+    'DRIVER=' + (ENV['DRIVER'] || 'poltergeist'),
+    'PAUSE=' + (ENV['PAUSE'] || '0'),
+    'COVERAGE=' + (ENV['COVERAGE'] || 'false'),
+    'ACCEPTANCE_TEST=true',
+    'EXPAND=' + (ENV['EXPAND'] || 'true'),
+    'COMMAND_NAME=' + (ENV['COMMAND_NAME'] || feature_dir.split('_').map{|a| a.capitalize }.join)
+  ].join(' ')
+  
   fail unless system("bundle exec cucumber #{args} #{options}")
 end
