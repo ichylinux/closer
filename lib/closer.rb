@@ -6,4 +6,8 @@ if defined?(Rails)
 end
 
 module Closer
+
+  def self.config
+    @@config ||= Closer::Config.new
+  end
 end
