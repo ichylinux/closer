@@ -1,4 +1,5 @@
 require "closer/version"
+require "closer/config"
 
 module Closer
 
