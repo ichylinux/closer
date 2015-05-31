@@ -30,7 +30,7 @@ task :close => dependencies do |t, args|
   unless format.empty?
     case format
     when 'junit'
-      output = File.join('test', 'reports')
+      output = File.join(feature_dir, 'reports')
       FileUtils.mkdir_p(output)
     else
       output = File.join(feature_dir, 'reports', 'index.html')
@@ -58,6 +58,9 @@ task :close => dependencies do |t, args|
     'EXPAND=' + (ENV['EXPAND'] || 'true'),
     'COMMAND_NAME=' + (ENV['COMMAND_NAME'] || feature_dir.split('_').map{|a| a.capitalize }.join)
   ].join(' ')
-  
+
+  report_dir = File.join(feature_dir, 'reports')
+  fail unless system("mkdir -p #{report_dir}")
+  fail unless system("rm -Rf #{report_dir}/*")
   fail unless system("bundle exec cucumber #{args} #{options}")
 end
