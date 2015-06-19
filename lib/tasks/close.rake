@@ -40,8 +40,7 @@ task :close => dependencies do |t, args|
   end
 
   args = [
-    "-r #{feature_dir}",
-    feature_dir == 'features' ? '' : '--exclude features/step_definitions',
+    "--require #{feature_dir}",
     '--guess',
     '--quiet',
     '--no-multiline',

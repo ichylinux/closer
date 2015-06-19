@@ -12,6 +12,13 @@
   margin: 5px 0px 5px 1.2em;
 }
 
+.cucumber .step.passed table td.skipped {
+  border-left: 1px solid gray;
+  border-bottom: 1px solid gray;
+  background: #FFFFFF;
+  color: #000000;
+}
+
 .cucumber ol li.passed,
 td ol li.passed,
 th ol li.passed,
@@ -167,8 +174,6 @@ del.differ {
   background: #ffffff;
   width: 48%;
   height: 48%;
-  max-width: 98%;
-  max-height: 98%;
   cursor: pointer;
 }
 

@@ -11,6 +11,10 @@ module Closer
         @_ruby_version_dir
       end
 
+      def gem_dir
+        File.join(Gem.dir, 'gems')
+      end
+
       def feature_id
         @feature.file.gsub(/(\/|\.|\\)/, '_')
       end

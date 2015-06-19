@@ -1,12 +1,21 @@
 require 'erb'
-require 'cucumber/formatter/ordered_xml_markup'
+require 'builder'
 require 'cucumber/formatter/duration'
 require 'cucumber/formatter/io'
+require 'pathname'
 require_relative 'closer_html'
 
 module Closer
   module Formatter
     class Html
+
+      # TODO: remove coupling to types
+      AST_CLASSES = {
+        Cucumber::Core::Ast::Scenario        => 'scenario',
+        Cucumber::Core::Ast::ScenarioOutline => 'scenario outline'
+      }
+      AST_DATA_TABLE = ::Cucumber::Formatter::LegacyApi::Ast::MultilineArg::DataTable
+
       include ERB::Util # for the #h method
       include ::Cucumber::Formatter::Duration
       include ::Cucumber::Formatter::Io
@@ -24,35 +33,55 @@ module Closer
         @header_red = nil
         @delayed_messages = []
         @img_id = 0
+        @text_id = 0
         @inside_outline = false
+        @previous_step_keyword = nil
       end
 
       def embed(src, mime_type, label)
         case(mime_type)
         when /^image\/(png|gif|jpg|jpeg)/
+          unless File.file?(src) or src =~ /^data:image\/(png|gif|jpg|jpeg);base64,/
+            type = mime_type =~ /;base[0-9]+$/ ? mime_type : mime_type + ";base64"
+            src = "data:" + type + "," + src
+          end
           embed_image(src, label)
+        when /^text\/plain/
+          embed_text(src, label)
         end
       end
 
       def embed_image(src, label)
         id = "img_#{@img_id}"
         @img_id += 1
+        if @io.respond_to?(:path) and File.file?(src)
+          out_dir = Pathname.new(File.dirname(File.absolute_path(@io.path)))
+          src = Pathname.new(File.absolute_path(src)).relative_path_from(out_dir)
+        end        
         @builder.span(:class => 'embed') do |pre|
           pre << %{<a href="" onclick="img=document.getElementById('#{id}'); img.style.display = (img.style.display == 'none' ? 'block' : 'none');return false">#{label}</a><br>&nbsp;
           <img id="#{id}" style="display: none" src="#{src}"/>}
         end
       end
 
+      def embed_text(src, label)
+        id = "text_#{@text_id}"
+        @text_id += 1
+        @builder.span(:class => 'embed') do |pre|
+          pre << %{<a id="#{id}" href="#{src}" title="#{label}">#{label}</a>}
+        end
+      end
+
 
       def before_features(features)
-        @step_count = features.step_count
+        @step_count = features && features.step_count || 0 #TODO: Make this work with core!
 
         @builder.declare!(:DOCTYPE, :html)
 
         @builder << '<html>'
           @builder.head do
           @builder.meta('http-equiv' => 'Content-Type', :content => 'text/html;charset=utf-8')
-          @builder.title 'Cucumber Features'
+          @builder.title 'Cucumber'
           inline_css
           inline_js
         end
@@ -68,7 +97,7 @@ module Closer
             @builder.p('',:id => 'duration')
             @builder.div(:id => 'expand-collapse') do
               @builder.p('Expand All', :id => 'expander')
-              @builder.p('Close All', :id => 'collapser')
+              @builder.p('Collapse All', :id => 'collapser')
             end
           end
         end
@@ -156,7 +185,7 @@ module Closer
 
       def background_name(keyword, name, file_colon_line, source_indent)
         @listing_background = true
-        @builder.h3 do |h3|
+        @builder.h3(:id => "background_#{@scenario_number}") do |h3|
           @builder.span(keyword, :class => 'keyword')
           @builder.text!(' ')
           @builder.span(name, :class => 'val')
@@ -166,16 +195,18 @@ module Closer
       def before_feature_element(feature_element)
         @scenario_number+=1
         @scenario_red = false
-        css_class = {
-          ::Cucumber::Ast::Scenario        => 'scenario',
-          ::Cucumber::Ast::ScenarioOutline => 'scenario outline'
-        }[feature_element.class]
+        css_class = AST_CLASSES[feature_element.class]
         @builder << "<div class='#{css_class}'>"
+        @in_scenario_outline = feature_element.class == Cucumber::Core::Ast::ScenarioOutline
       end
 
       def after_feature_element(feature_element)
+        unless @in_scenario_outline
+          print_messages
+          @builder << '</ol>'
+        end
         @builder << '</div>'
-        @open_step_list = true
+        @in_scenario_outline = nil
       end
 
       def scenario_name(keyword, name, file_colon_line, source_indent)
@@ -183,14 +214,20 @@ module Closer
           @builder << file_colon_line
         end
         @listing_background = false
+        scenario_id = "scenario_#{@scenario_number}"
+        if @inside_outline
+          @outline_row += 1
+          scenario_id += "_#{@outline_row}"
+          @scenario_red = false
+        end
 
         lines = name.split("\n")
-        @builder.h3 do
+        @builder.h3(:id => scenario_id) do
           @builder.span(lines[0], :class => 'val')
         end
-        
+
         if lines.size > 1
-          @builder.div(:class => 'narrative', :style => 'display: none;') do
+          @builder.pre(:class => 'narrative', :style => 'display: none;') do
             @builder << lines[1..-1].join("\n")
           end
         end
@@ -209,7 +246,7 @@ module Closer
       end
 
       def before_examples(examples)
-         @builder << '<div class="examples">'
+        @builder << '<div class="examples">'
       end
 
       def after_examples(examples)
@@ -229,10 +266,12 @@ module Closer
       end
 
       def after_steps(steps)
-        @builder << '</ol>'
+        print_messages
+        @builder << '</ol>' if @in_background or @in_scenario_outline
       end
 
       def before_step(step)
+        print_messages
         @step_id = step.dom_id
         @step_number += 1
         @step = step
@@ -261,20 +300,24 @@ module Closer
         set_scenario_color(status)
 
         if ! @delayed_messages.empty? and status == :passed
-          @builder << "<li class='step #{status} expand'>"
+          @builder << "<li id='#{@step_id}' class='step #{status} expand'>"
         else
-          @builder << "<li class='step #{status}'>"
+          @builder << "<li id='#{@step_id}' class='step #{status}'>"
         end
       end
 
       def after_step_result(keyword, step_match, multiline_arg, status, exception, source_indent, background, file_colon_line)
         return if @hide_this_step
         # print snippet for undefined steps
+        unless outline_step?(@step)
+          keyword = @step.actual_keyword(@previous_step_keyword)
+          @previous_step_keyword = keyword
+        end
         if status == :undefined
-          keyword = @step.actual_keyword if @step.respond_to?(:actual_keyword)
-          step_multiline_class = @step.multiline_arg ? @step.multiline_arg.class : nil
           @builder.pre do |pre|
-            pre << @runtime.snippet_text(keyword,step_match.instance_variable_get("@name") || '',step_multiline_class)
+            # TODO: snippet text should be an event sent to the formatter so we don't 
+            # have this couping to the runtime.
+            pre << @runtime.snippet_text(keyword,step_match.instance_variable_get("@name") || '', @step.multiline_arg)
           end
         end
         @builder << '</li>'
@@ -286,7 +329,8 @@ module Closer
             line_index = $2.to_i - 1
 
             file = $1.force_encoding('UTF-8')
-            File.readlines(File.expand_path(file))[line_index..-1].each do |line|
+            file = File.join(gem_dir, file) unless File.exist?(file)
+            File.readlines(file)[line_index..-1].each do |line|
               step_contents << line
               break if line.chop == 'end' or line.chop.start_with?('end ')
             end
@@ -309,6 +353,7 @@ module Closer
 
       def exception(exception, status)
         return if @hide_this_step
+        print_messages
         build_exception_detail(exception)
       end
 
@@ -319,14 +364,14 @@ module Closer
 
       def before_multiline_arg(multiline_arg)
         return if @hide_this_step || @skip_step
-        if ::Cucumber::Ast::Table === multiline_arg
+        if AST_DATA_TABLE === multiline_arg
           @builder << '<table>'
         end
       end
 
       def after_multiline_arg(multiline_arg)
         return if @hide_this_step || @skip_step
-        if ::Cucumber::Ast::Table === multiline_arg
+        if AST_DATA_TABLE === multiline_arg
           @builder << '</table>'
         end
       end
@@ -337,7 +382,6 @@ module Closer
           @builder << h(string).gsub("\n", '&#x000A;')
         end
       end
-
 
       def before_table_row(table_row)
         @row_id = table_row.dom_id
@@ -392,7 +436,7 @@ module Closer
 
         #@builder.ol do
           @delayed_messages.each do |ann|
-            @builder.li(:class => 'message', :style => 'display: none;') do
+            @builder.li(:class => 'step message', :style => 'display: none;') do
               @builder << ann
             end
           end
@@ -401,10 +445,22 @@ module Closer
       end
 
       def print_table_row_messages
+        return if @delayed_messages.empty?
+
+        @builder.td(:class => 'message') do
+          @builder << @delayed_messages.join(", ")
+        end
+        empty_messages
       end
 
       def empty_messages
         @delayed_messages = []
+      end
+
+      def after_test_case(test_case, result)
+        if result.failed? and not @scenario_red
+          set_scenario_color_failed
+        end
       end
 
       protected
@@ -449,26 +505,23 @@ module Closer
       end
 
       def set_scenario_color_failed
-        id = current_time_string
-        style = 'display: none; margin: 0; padding: 0;'
-        @builder << "<div id=\"#{id}\" style=\"#{style}\"></div>"
-
         @builder.script do
           @builder.text!("makeRed('cucumber-header');") unless @header_red
           @header_red = true
-          @builder.text!("$(function() { $('##{id}').closest('.scenario').addClass('faild'); });") unless @scenario_red
+          scenario_or_background = @in_background ? "background" : "scenario"
+          @builder.text!("makeRed('#{scenario_or_background}_#{@scenario_number}');") unless @scenario_red
           @scenario_red = true
+          if @options[:expand] and @inside_outline
+            @builder.text!("makeRed('#{scenario_or_background}_#{@scenario_number}_#{@outline_row}');")
+          end
         end
       end
 
       def set_scenario_color_pending
-        id = current_time_string
-        style = 'display: none; margin: 0; padding: 0;'
-        @builder << "<div id=\"#{id}\" style=\"#{style}\"></div>"
-
         @builder.script do
           @builder.text!("makeYellow('cucumber-header');") unless @header_red
-          @builder.text!("$(function() { $('##{id}').closest('.scenario').addClass('pending'); });") unless @scenario_red
+          scenario_or_background = @in_background ? "background" : "scenario"
+          @builder.text!("makeYellow('#{scenario_or_background}_#{@scenario_number}');") unless @scenario_red
         end
       end
 
@@ -491,14 +544,14 @@ module Closer
           end
         end
 
-        step_file = step_match.file_colon_line.force_encoding('UTF-8')
+        step_file = step_match.file_colon_line
         step_file.gsub(/^([^:]*\.rb):(\d*)/) do
           step_file = "<span style=\"cursor: pointer;\" onclick=\"toggle_step_file(this); return false;\">#{step_file}</span>"
-        end
 
-        @builder.div(:class => 'step_file') do |div|
-          @builder.span do
-            @builder << step_file
+          @builder.div(:class => 'step_file') do |div|
+            @builder.span do
+              @builder << step_file
+            end
           end
         end
       end
@@ -548,7 +601,8 @@ module Closer
 
       def inline_js_content
         <<-EOF
-  SCENARIOS = "div.scenario h3";
+
+  SCENARIOS = "h3[id^='scenario_'],h3[id^=background_]";
 
   $(document).ready(function() {
     $(SCENARIOS).css('cursor', 'pointer');
@@ -580,11 +634,12 @@ module Closer
     $('#'+element_id).css('background', '#FAF834');
     $('#'+element_id).css('color', '#000000');
   }
+
         EOF
       end
 
       def move_progress
-        @builder << " <script type=\"text/javascript\">moveProgressBar('#{percent_done}');</script>"
+        #@builder << " <script type=\"text/javascript\">moveProgressBar('#{percent_done}');</script>"
       end
 
       def percent_done
@@ -600,7 +655,7 @@ module Closer
       end
 
       def backtrace_line(line)
-        line.gsub(/\A([^:]*\.(?:rb|feature|haml)):(\d*).*\z/) do
+        line.gsub(/^([^:]*\.(?:rb|feature|haml)):(\d*).*$/) do
           if ENV['TM_PROJECT_DIRECTORY']
             "<a href=\"txmt://open?url=file://#{File.expand_path($1)}&line=#{$2}\">#{$1}:#{$2}</a> "
           else
@@ -638,7 +693,11 @@ module Closer
       end
 
       def create_builder(io)
-        ::Cucumber::Formatter::OrderedXmlMarkup.new(:target => io, :indent => 0)
+        Builder::XmlMarkup.new(:target => io, :indent => 0)
+      end
+
+      def outline_step?(step)
+        not @step.step.respond_to?(:actual_keyword)
       end
 
       class SnippetExtractor #:nodoc:
@@ -664,8 +723,12 @@ module Closer
 
         def lines_around(file, line)
           if File.file?(file)
+            begin
             lines = File.open(file).read.split("\n")
-            min = [0, line-3].max
+          rescue ArgumentError
+            return "# Couldn't get snippet for #{file}"
+          end
+          min = [0, line-3].max
             max = [line+1, lines.length-1].min
             selected_lines = []
             selected_lines.join("\n")
