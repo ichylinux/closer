@@ -67,8 +67,8 @@ module Closer
             @builder.p('',:id => 'totals')
             @builder.p('',:id => 'duration')
             @builder.div(:id => 'expand-collapse') do
-              @builder.p('すべて開く', :id => 'expander')
-              @builder.p('すべて閉じる', :id => 'collapser')
+              @builder.p('Expand All', :id => 'expander')
+              @builder.p('Close All', :id => 'collapser')
             end
           end
         end
@@ -548,7 +548,6 @@ module Closer
 
       def inline_js_content
         <<-EOF
-
   SCENARIOS = "div.scenario h3";
 
   $(document).ready(function() {
@@ -581,7 +580,6 @@ module Closer
     $('#'+element_id).css('background', '#FAF834');
     $('#'+element_id).css('color', '#000000');
   }
-
         EOF
       end
 
