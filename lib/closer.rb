@@ -13,5 +13,3 @@ if defined?(Rails)
   require 'closer/rails/engine'
   require 'closer/rails/railtie'
 end
-
-require_relative 'helpers'

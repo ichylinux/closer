@@ -151,7 +151,7 @@ body {
   padding: 0px;
 }
 .cucumber ol li.step, td ol li.step, th ol li.step {
-  padding: 3px 3px 3px 18px;
+  padding: 3px 3px 3px 13px;
   margin: 5px 0px 5px 5px;
 }
 .cucumber ol li, td ol li, th ol li {
@@ -166,6 +166,7 @@ body {
   border-bottom: 1px solid #c20000;
   background: #fffbd3;
   color: #c20000;
+  padding: 3px 3px 3px 8px;
 }
 .cucumber ol li.passed, td ol li.passed, th ol li.passed {
   border-left: 5px solid #65c400;
@@ -192,12 +193,12 @@ body {
   color: #131313;
 }
 .cucumber ol li.message, td ol li.message, th ol li.message {
-  border-left: 5px solid aqua;
-  border-bottom: 1px solid aqua;
-  background: #e0ffff;
+  border-left: 5px solid #999999;
+  border-bottom: 1px solid #999999;
+  background: #F0F8FF;
   color: #001111;
-  margin-left: 10px;
-  white-space: pre;
+  margin: 5px 0px 18px 18px;
+  padding: 3px 10px 3px 10px;
 }
 .cucumber #summary, td #summary, th #summary {
   margin: 0px;

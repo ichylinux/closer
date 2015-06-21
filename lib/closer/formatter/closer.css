@@ -7,11 +7,6 @@
   font-weight: bold;
 }
 
-.cucumber ol li.step, td ol li.step, th ol li.step {
-  padding: 3px 3px 3px 10px;
-  margin: 5px 0px 5px 1.2em;
-}
-
 .cucumber .step.passed table td.skipped {
   border-left: 1px solid gray;
   border-bottom: 1px solid gray;
@@ -38,15 +33,6 @@ th ol li.passed,
 }
 .cucumber ol li.expand:hover, td ol li.expand:hover, th ol li.expand:hover {
   background: #F0F8FF;
-}
-
-.cucumber ol li.message, td ol li.message, th ol li.message {
-  border-left: 5px solid #999999;
-  border-bottom: 1px solid #999999;
-  background: #F0F8FF;
-  color: #001111;
-  margin: 5px 0px 5px 1.2em;
-  padding: 3px 15px 3px 10px;
 }
 
 .feature_dir {
@@ -85,9 +71,8 @@ div.contents {
 }
 
 div.feature .narrative {
-  margin: 1.2em;
+  margin: 10px 21px;
   line-height: 1.5em;
-  font-size: 1.2em;
 }
 
 div.feature .narrative > div {

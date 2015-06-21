@@ -436,7 +436,7 @@ module Closer
 
         #@builder.ol do
           @delayed_messages.each do |ann|
-            @builder.li(:class => 'step message', :style => 'display: none;') do
+            @builder.li(:class => 'message', :style => 'display: none;') do
               @builder << ann
             end
           end
@@ -619,7 +619,6 @@ module Closer
     $("#expander").css('cursor', 'pointer');
     $("#expander").click(function() {
       $(SCENARIOS).siblings().show();
-      $('li.message').show();
     });
   })
 
