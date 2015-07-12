@@ -58,6 +58,18 @@ module Closer
         Time.now.instance_eval{ '%s%03d' % [strftime('%Y%m%d%H%M%S'), (usec / 1000.0).round] }
       end
 
+      def display_keyword(keyword)
+        if @in_background
+          display_keyword = keyword.strip + ' '
+        else
+          if keyword.strip == '*'
+            display_keyword = ''
+          else
+            display_keyword = keyword.strip + ' '
+          end
+        end
+      end
+
     end
   end
 end
