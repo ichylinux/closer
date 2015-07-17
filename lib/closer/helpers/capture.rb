@@ -9,7 +9,7 @@ module Closer
         end
       end
       IMAGE_DIR = File.join(feature_dir, 'reports', 'images')
-      FileUtils.mkdir_p(File.basename(IMAGE_DIR))
+      FileUtils.mkdir_p(IMAGE_DIR)
 
       @@_screen_count = 0
       @@_images = []
