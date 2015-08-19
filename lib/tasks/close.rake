@@ -10,10 +10,10 @@ end
 task :close => dependencies do |t, args|
   features = []
   ARGV[1..-1].each do |arg|
-    unless arg.index('=')
-      task arg.to_sym do ; end
-      features << arg.gsub(/:/, '\:')
-    end
+    next if arg.start_with?('-') or arg.index('=')
+
+    task arg.to_sym do ; end
+    features << arg.gsub(/:/, '\:')
   end
 
   feature_dir = 'features'
