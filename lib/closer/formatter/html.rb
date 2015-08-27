@@ -96,8 +96,8 @@ module Closer
             @builder.p('',:id => 'totals')
             @builder.p('',:id => 'duration')
             @builder.div(:id => 'expand-collapse') do
-              @builder.p('Expand All', :id => 'expander')
-              @builder.p('Collapse All', :id => 'collapser')
+              @builder.p('Expand All', :id => 'expander', :style => 'cursor: pointer;')
+              @builder.p('Collapse All', :id => 'collapser', :style => 'cursor: pointer;')
             end
           end
         end
@@ -223,7 +223,7 @@ module Closer
 
         lines = name.split("\n")
         @builder.h3(:id => scenario_id) do
-          @builder.span(lines[0], :class => 'val')
+          @builder.span(lines[0], :class => 'val', :style => 'cursor: pointer;')
         end
 
         if lines.size > 1
@@ -550,20 +550,20 @@ module Closer
       def build_cell(cell_type, value, attributes)
         @builder.__send__(cell_type, attributes) do
           @builder.div do
-            @builder.span(value,:class => 'step param')
+            @builder.span(value, :class => 'step param')
           end
         end
       end
 
       def inline_css
-        @builder.style(:type => 'text/css') do
+        @builder.style do
           @builder << File.read(File.dirname(__FILE__) + '/cucumber.css')
           @builder << File.read(File.dirname(__FILE__) + '/closer.css')
         end
       end
 
       def inline_js
-        @builder.script(:type => 'text/javascript') do
+        @builder.script do
           @builder << inline_jquery
           @builder << inline_js_content
           @builder << inline_closer
@@ -596,20 +596,17 @@ module Closer
   SCENARIOS = "h3[id^='scenario_'],h3[id^=background_]";
 
   $(document).ready(function() {
-    $(SCENARIOS).css('cursor', 'pointer');
-    $(SCENARIOS).click(function() {
-      $(this).siblings().toggle(250);
+    $(SCENARIOS).delegate('.val', 'click', function() {
+      $(this).parent().siblings().toggle(100);
     });
 
-    $("#collapser").css('cursor', 'pointer');
     $("#collapser").click(function() {
-      $(SCENARIOS).siblings().hide();
-      $('li.message').hide();
+      $(SCENARIOS).siblings().hide(100);
+      $('li.message').hide(100);
     });
 
-    $("#expander").css('cursor', 'pointer');
     $("#expander").click(function() {
-      $(SCENARIOS).siblings().show();
+      $(SCENARIOS).siblings().show(100);
     });
   })
 

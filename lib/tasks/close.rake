@@ -45,9 +45,9 @@ task :close => dependencies do |t, args|
     '--quiet',
     '--no-multiline',
     '--format pretty',
-    additional_format,
-    features.join(' ')
-  ].join(' ')
+    additional_format
+  ]
+  args << '--dry-run' if ENV['DRY_RUN'] or ENV['DR']
 
   options = [
     'DRIVER=' + (ENV['DRIVER'] || 'poltergeist'),
@@ -56,10 +56,10 @@ task :close => dependencies do |t, args|
     'ACCEPTANCE_TEST=true',
     'EXPAND=' + (ENV['EXPAND'] || 'true'),
     'COMMAND_NAME=' + (ENV['COMMAND_NAME'] || feature_dir.split('_').map{|a| a.capitalize }.join)
-  ].join(' ')
+  ]
 
   report_dir = File.join(feature_dir, 'reports')
   fail unless system("mkdir -p #{report_dir}")
   fail unless system("rm -Rf #{report_dir}/*")
-  fail unless system("bundle exec cucumber #{args} #{options}")
+  fail unless system("bundle exec cucumber #{args.join(' ')} #{options.join(' ')} #{features.join(' ')}")
 end
