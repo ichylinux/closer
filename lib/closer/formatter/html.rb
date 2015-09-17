@@ -22,7 +22,7 @@ module Closer
       include CloserHtml
 
       def initialize(runtime, path_or_io, options)
-        @io = ensure_io(path_or_io, "html")
+        @io = ensure_io(path_or_io)
         @runtime = runtime
         @options = options
         @buffer = {}
@@ -222,13 +222,15 @@ module Closer
         end
 
         lines = name.split("\n")
+        title = lines.shift
         @builder.h3(:id => scenario_id) do
-          @builder.span(lines[0], :class => 'val', :style => 'cursor: pointer;')
+          @builder.span(title, :class => 'val', :style => 'cursor: pointer;')
         end
 
-        if lines.size > 1
+        if lines.size > 0
           @builder.pre(:class => 'narrative', :style => 'display: none;') do
-            @builder << lines[1..-1].join("\n")
+            trim_size = indent_size(lines.first)
+            @builder << lines.map{|line| line[trim_size..-1] }.join("\n")
           end
         end
       end

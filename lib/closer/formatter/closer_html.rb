@@ -68,6 +68,10 @@ module Closer
         end
       end
 
+      def indent_size(text)
+        text.to_s[/\A */].size
+      end
+
     end
   end
 end
