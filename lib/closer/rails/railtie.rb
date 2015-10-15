@@ -1,4 +1,4 @@
-true_values = %w{ true t 1 }
+true_values = %w{ true t yes y 1 }
 if true_values.include?(ENV["COVERAGE"].to_s.downcase) and true_values.include?(ENV['ACCEPTANCE_TEST'].to_s.downcase)
   require 'simplecov'
   require 'simplecov-rcov'

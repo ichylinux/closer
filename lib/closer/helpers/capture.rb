@@ -68,3 +68,7 @@ World(Closer::Helpers::Capture)
 AfterStep do |step|
   flash_image_tags
 end
+
+After do |scenario|
+  flash_image_tags
+end

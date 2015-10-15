@@ -22,7 +22,7 @@ module Closer
       def feature_dir(feature, short = false)
         ret = ''
         
-        split = feature.file.split(File::SEPARATOR)
+        split = feature.file.split(File::SEPARATOR).reject{|dir| dir.empty? }
         split.reverse[1..-2].each_with_index do |dir, i|
           if i == 0
             if short
