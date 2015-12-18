@@ -1,13 +1,3 @@
-true_values = %w{ true t yes y 1 }
-if true_values.include?(ENV["COVERAGE"].to_s.downcase) and true_values.include?(ENV['ACCEPTANCE_TEST'].to_s.downcase)
-  require 'simplecov'
-  require 'simplecov-rcov'
-  SimpleCov.formatter = SimpleCov::Formatter::RcovFormatter
-  SimpleCov.command_name(ENV['COMMAND_NAME'] || 'Cucumber')
-  SimpleCov.merge_timeout(Closer.config.merge_timeout)
-  SimpleCov.start 'rails'
-end
-
 module Closer
   module Rails
     class Railtie < ::Rails::Railtie
