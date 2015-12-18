@@ -18,16 +18,6 @@ if coverage_enabled
   SimpleCov.formatter = SimpleCov::Formatter::RcovFormatter
   SimpleCov.command_name(ENV['COMMAND_NAME'] || 'Cucumber')
   SimpleCov.merge_timeout(Closer.config.merge_timeout)
-
-  if defined?(Rails)
-    SimpleCov.start 'rails'
-  else
-    SimpleCov.start
-  end
-end
-
-if defined?(Rails)
-  require 'closer/rails/engine'
-  require 'closer/rails/railtie'
+  SimpleCov.start
 end
 
