@@ -38,41 +38,6 @@ module Closer
         @previous_step_keyword = nil
       end
 
-      def embed(src, mime_type, label)
-        case(mime_type)
-        when /^image\/(png|gif|jpg|jpeg)/
-          unless File.file?(src) or src =~ /^data:image\/(png|gif|jpg|jpeg);base64,/
-            type = mime_type =~ /;base[0-9]+$/ ? mime_type : mime_type + ";base64"
-            src = "data:" + type + "," + src
-          end
-          embed_image(src, label)
-        when /^text\/plain/
-          embed_text(src, label)
-        end
-      end
-
-      def embed_image(src, label)
-        id = "img_#{@img_id}"
-        @img_id += 1
-        if @io.respond_to?(:path) and File.file?(src)
-          out_dir = Pathname.new(File.dirname(File.absolute_path(@io.path)))
-          src = Pathname.new(File.absolute_path(src)).relative_path_from(out_dir)
-        end        
-        @builder.span(:class => 'embed') do |pre|
-          pre << %{<a href="" onclick="img=document.getElementById('#{id}'); img.style.display = (img.style.display == 'none' ? 'block' : 'none');return false">#{label}</a><br>&nbsp;
-          <img id="#{id}" style="display: none" src="#{src}"/>}
-        end
-      end
-
-      def embed_text(src, label)
-        id = "text_#{@text_id}"
-        @text_id += 1
-        @builder.span(:class => 'embed') do |pre|
-          pre << %{<a id="#{id}" href="#{src}" title="#{label}">#{label}</a>}
-        end
-      end
-
-
       def before_features(features)
         @step_count = features && features.step_count || 0 #TODO: Make this work with core!
 
@@ -96,8 +61,8 @@ module Closer
             @builder.p('',:id => 'totals')
             @builder.p('',:id => 'duration')
             @builder.div(:id => 'expand-collapse') do
-              @builder.p('Expand All', :id => 'expander', :style => 'cursor: pointer;')
-              @builder.p('Collapse All', :id => 'collapser', :style => 'cursor: pointer;')
+              @builder.p('Expand All', :id => 'expander', :class => 'pointer')
+              @builder.p('Collapse All', :id => 'collapser', :class => 'pointer')
             end
           end
         end
@@ -224,7 +189,7 @@ module Closer
         lines = name.split("\n")
         title = lines.shift
         @builder.h3(:id => scenario_id) do
-          @builder.span(title, :class => 'val', :style => 'cursor: pointer;')
+          @builder.span(title, :class => 'val pointer')
         end
 
         if lines.size > 0
@@ -280,7 +245,6 @@ module Closer
       end
 
       def after_step(step)
-        move_progress
       end
 
       def before_step_result(keyword, step_match, multiline_arg, status, exception, source_indent, background, file_colon_line)
@@ -414,7 +378,6 @@ module Closer
           @outline_row += 1
         end
         @step_number += 1
-        move_progress
       end
 
       def table_cell_value(value, status)
@@ -539,7 +502,7 @@ module Closer
 
         step_file = step_match.file_colon_line
         step_file.gsub(/^([^:]*\.rb):(\d*)/) do
-          step_file = "<span style=\"cursor: pointer;\" onclick=\"toggle_step_file(this); return false;\">#{step_file}</span>"
+          step_file = "<span class=\"pointer\" onclick=\"toggle_step_file(this); return false;\">#{step_file}</span>"
 
           @builder.div(:class => 'step_file') do |div|
             @builder.span do
@@ -627,35 +590,19 @@ module Closer
         EOF
       end
 
-      def move_progress
-        #@builder << " <script type=\"text/javascript\">moveProgressBar('#{percent_done}');</script>"
-      end
-
-      def percent_done
-        result = 100.0
-        if @step_count != 0
-          result = ((@step_number).to_f / @step_count.to_f * 1000).to_i / 10.0
-        end
-        result
-      end
-
       def format_exception(exception)
         (["#{exception.message}"] + exception.backtrace).join("\n")
       end
 
       def backtrace_line(line)
         line.gsub(/^([^:]*\.(?:rb|feature|haml)):(\d*).*$/) do
-          if ENV['TM_PROJECT_DIRECTORY']
-            "<a href=\"txmt://open?url=file://#{File.expand_path($1)}&line=#{$2}\">#{$1}:#{$2}</a> "
-          else
-            line
-          end
+          line
         end
       end
 
       def print_stats(features)
-        @builder <<  "<script type=\"text/javascript\">document.getElementById('duration').innerHTML = \"Finished in <strong>#{format_duration(features.duration)} seconds</strong>\";</script>"
-        @builder <<  "<script type=\"text/javascript\">document.getElementById('totals').innerHTML = \"#{print_stat_string(features)}\";</script>"
+        @builder <<  "<script>document.getElementById('duration').innerHTML = \"Finished in <strong>#{format_duration(features.duration)} seconds</strong>\";</script>"
+        @builder <<  "<script>document.getElementById('totals').innerHTML = \"#{print_stat_string(features)}\";</script>"
       end
 
       def print_stat_string(features)

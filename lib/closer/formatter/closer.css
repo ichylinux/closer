@@ -156,6 +156,10 @@ del.differ {
   background: #FFB6C1;
 }
 
+.pointer {
+  cursor: pointer;
+}
+
 .screenshot {
   border: solid 1px #999999;
   border-radius: 5px 5px;
