@@ -175,7 +175,7 @@ module Closer
       end
 
       def scenario_name(keyword, name, file_colon_line, source_indent)
-        @builder.span(:class => 'scenario_file', :style => 'display: none;') do
+        @builder.span(:class => 'scenario_file hidden') do
           @builder << file_colon_line
         end
         @listing_background = false
@@ -193,7 +193,7 @@ module Closer
         end
 
         if lines.size > 0
-          @builder.pre(:class => 'narrative', :style => 'display: none;') do
+          @builder.pre(:class => 'narrative hidden') do
             trim_size = indent_size(lines.first)
             @builder << lines.map{|line| line[trim_size..-1] }.join("\n")
           end
@@ -229,7 +229,7 @@ module Closer
       end
 
       def before_steps(steps)
-        @builder << '<ol style="display: none;">'
+        @builder << '<ol class="hidden">'
       end
 
       def after_steps(steps)
@@ -401,7 +401,7 @@ module Closer
 
         #@builder.ol do
           @delayed_messages.each do |ann|
-            @builder.li(:class => 'message', :style => 'display: none;') do
+            @builder.li(:class => 'message hidden') do
               @builder << ann
             end
           end

@@ -156,6 +156,10 @@ del.differ {
   background: #FFB6C1;
 }
 
+.hidden {
+  display: none;
+}
+
 .pointer {
   cursor: pointer;
 }
