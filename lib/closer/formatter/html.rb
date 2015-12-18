@@ -290,7 +290,7 @@ module Closer
 
         unless status == :undefined
           step_file = step_match.file_colon_line
-          step_contents = "<div class=\"step_contents\"><pre>"
+          step_contents = "<div class=\"step_contents hidden\"><pre>"
           step_file.gsub(/^([^:]*\.rb):(\d*)/) do
             line_index = $2.to_i - 1
 
@@ -566,12 +566,13 @@ module Closer
     });
 
     $("#collapser").click(function() {
-      $(SCENARIOS).siblings().hide(100);
-      $('li.message').hide(100);
+      $(SCENARIOS).siblings().addClass('hidden');
+      $('li.message').addClass('hidden');
     });
 
     $("#expander").click(function() {
-      $(SCENARIOS).siblings().show(100);
+      $(SCENARIOS).siblings().removeClass('hidden');
+      $('li.message').removeClass('hidden');
     });
   })
 
