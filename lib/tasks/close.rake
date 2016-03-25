@@ -42,7 +42,6 @@ task :close => dependencies do |t, args|
   args = [
     "--require #{feature_dir}",
     '--guess',
-    '--quiet',
     '--no-multiline',
     '--format pretty',
     additional_format
