@@ -281,7 +281,7 @@ module Closer
         end
         if status == :undefined
           @builder.pre do |pre|
-            # TODO: snippet text should be an event sent to the formatter so we don't 
+            # TODO: snippet text should be an event sent to the formatter so we don't
             # have this couping to the runtime.
             pre << @runtime.snippet_text(keyword,step_match.instance_variable_get("@name") || '', @step.multiline_arg)
           end
@@ -551,7 +551,7 @@ module Closer
             });
           }.join(' ')
         end
-        
+
         ret
       end
 
@@ -630,7 +630,9 @@ module Closer
       end
 
       def create_builder(io)
-        Builder::XmlMarkup.new(:target => io, :indent => 0)
+        ret = Builder::XmlMarkup.new(:target => io, :indent => 0)
+        ret.instruct! :xml, :version => '1.0', :encoding => 'UTF-8'
+        ret
       end
 
       def outline_step?(step)
