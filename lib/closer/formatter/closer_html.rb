@@ -16,7 +16,7 @@ module Closer
       end
 
       def feature_id
-        @feature.file.gsub(/(\/|\.|\\)/, '_')
+        @feature.file.force_encoding('UTF-8').gsub(/(\/|\.|\\)/, '_')
       end
 
       def feature_dir(feature, short = false)
