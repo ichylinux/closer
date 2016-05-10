@@ -1,5 +1,7 @@
 # Master
-Release Date: unknown
+
+# Version 0.3.7
+Release Date: 2016-05-11
 
 ### Fixed
 
