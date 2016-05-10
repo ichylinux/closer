@@ -1,10 +1,11 @@
 require "closer/version"
 require "closer/config"
+require 'closer/cucumber_patch'
 
 module Closer
 
   def self.config
-    @@config ||= Closer::Config.new
+    @config ||= Closer::Config.new
   end
 
 end
