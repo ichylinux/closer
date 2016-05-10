@@ -7,7 +7,7 @@ module Cucumber
       class Step
 
         def backtrace_line
-          "#{location.force_encoding('UTF-8')}:in `#{keyword.force_encoding('UTF-8')}#{name.force_encoding('UTF-8')}'"
+          "#{location.to_s.force_encoding('UTF-8')}:in `#{keyword.force_encoding('UTF-8')}#{name.force_encoding('UTF-8')}'"
         end
 
       end
