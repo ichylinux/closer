@@ -41,6 +41,14 @@ module Closer
         end
       end
 
+      def with_capture(options = {})
+        begin
+          yield
+        ensure
+          capture(options)
+        end
+      end
+
       def resize_window(width, height)
         case Capybara.current_driver
         when :poltergeist
