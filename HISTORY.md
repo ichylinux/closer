@@ -1,5 +1,8 @@
 # Master
 
+### Changed
+* drop support for ruby-2.0
+
 # Version 0.3.7
 Release Date: 2016-05-11
 
