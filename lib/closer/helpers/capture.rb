@@ -29,9 +29,10 @@ module Closer
         attrs = {
           :class => 'screenshot',
           :src => "#{File.basename(IMAGE_DIR)}/#{File.basename(image)}",
-          :title => options[:title],
           :alt => url
         }
+        attrs[:title] = options[:title] if options[:title]
+
         image_tag = "<img #{attrs.map{|k, v| "#{k}=\"#{v}\"" }.join(' ')} />"
 
         if options[:flash]
