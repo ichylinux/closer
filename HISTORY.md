@@ -1,5 +1,11 @@
 # Master
 
+### Fixed
+* don't include title attribute when empty.
+
+# Version 0.3.8
+Release Date: 2016-08-20
+
 ### Changed
 * drop support for ruby-2.0
 
