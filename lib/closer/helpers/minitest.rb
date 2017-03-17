@@ -1,5 +1,5 @@
 if defined?(Minitest)
-  class MinitestWorld
+  module MinitestWorld
     include Minitest::Assertions
     attr_accessor :assertions
   
@@ -8,7 +8,5 @@ if defined?(Minitest)
     end
   end
   
-  World do
-    MinitestWorld.new
-  end
+  World(MinitestWorld)
 end
