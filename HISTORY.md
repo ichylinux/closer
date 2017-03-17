@@ -1,7 +1,11 @@
 # Master
 
+# Version 0.4.0
+Release Date: 2017-03-17
+
 ### Fixed
 * don't include title attribute when empty.
+* minitest integration
 
 # Version 0.3.8
 Release Date: 2016-08-20
