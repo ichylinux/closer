@@ -56,8 +56,6 @@ module Closer
           Capybara.current_session.driver.resize(width, height)
         when :selenium
           Capybara.current_session.driver.browser.manage.window.resize_to(width, height)
-        when :webkit
-          # TODO
         end
       end
 

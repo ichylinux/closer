@@ -1,6 +1,6 @@
-require "closer/version"
-require "closer/config"
-require 'closer/cucumber_patch'
+require 'closer/version'
+require 'closer/config'
+#require 'closer/cucumber_patch'
 
 module Closer
 

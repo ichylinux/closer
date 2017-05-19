@@ -1,4 +1,6 @@
+/.buildpath
 /.bundle/
+/.project
 /.yardoc
 /Gemfile.lock
 /_yardoc/
@@ -12,4 +14,3 @@
 *.o
 *.a
 mkmf.log
-/.project

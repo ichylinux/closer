@@ -1,4 +1,5 @@
 # Master
+* drop support for webkit
 
 # Version 0.4.1
 Release Date: 2017-03-17
