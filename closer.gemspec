@@ -19,10 +19,11 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = '~> 2.1'
 
-  spec.add_runtime_dependency 'bundler', '~> 1.12'
   spec.add_runtime_dependency 'cucumber', '~> 2.4'
-  spec.add_runtime_dependency 'minitest', '~> 5.10'
   spec.add_runtime_dependency 'poltergeist', '>= 1.9'
-  spec.add_runtime_dependency 'rake', '~> 12.0'
   spec.add_runtime_dependency 'selenium-webdriver', '~> 2.53'
+
+  spec.add_development_dependency 'bundler', '~> 1.12'
+  spec.add_development_dependency 'minitest', '~> 5.10'
+  spec.add_development_dependency 'rake', '~> 12.0'
 end
