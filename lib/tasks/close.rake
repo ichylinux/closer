@@ -47,7 +47,9 @@ task :close => dependencies do |t, args|
     additional_format
   ]
   args << '--dry-run' if ENV['DRY_RUN'] or ENV['DR']
-  args << '--order random' unless ENV['SORT']
+  if feature_dir != 'user_stories'
+    args << '--order random' unless ENV['SORT']
+  end
 
   options = [
     'DRIVER=' + (ENV['DRIVER'] || 'poltergeist'),
