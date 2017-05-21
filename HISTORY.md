@@ -1,5 +1,11 @@
 # Master
+
+# Version 0.4.2
+Release Date: 2017-05-21
+
+### Changed
 * drop support for webkit
+* run features randomly unless environment variable SORT is passed
 
 # Version 0.4.1
 Release Date: 2017-03-17
