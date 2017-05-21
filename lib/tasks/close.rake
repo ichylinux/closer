@@ -23,6 +23,7 @@ task :close => dependencies do |t, args|
       feature_dir = dir
       dir = File.dirname(dir)
     end
+    feature_dir = File.basename(feature_dir)
   end
   puts "using features in directory #{feature_dir}" unless feature_dir == 'features'
 

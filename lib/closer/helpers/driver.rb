@@ -1,9 +1,9 @@
-Capybara.default_driver = (ENV['DRIVER'] || :selenium).to_sym
+Capybara.default_driver = (ENV['DRIVER'] || 'selenium').to_sym
 
 case Capybara.default_driver
-when 'poltergeist'
+when :poltergeist
   require 'capybara/poltergeist'
-when 'selenium'
+when :selenium
   if ENV['CI'] == 'travis'
     caps = Selenium::WebDriver::Remote::Capabilities.chrome(
       'tunnel-identifier' => ENV['TRAVIS_JOB_NUMBER']
