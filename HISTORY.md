@@ -1,5 +1,11 @@
 # Master
 
+# Version 0.5.0
+Release Date: 2017-05-22
+
+### Added
+* add support for Sause Labs
+
 # Version 0.4.2
 Release Date: 2017-05-21
 
