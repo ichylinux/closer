@@ -1,6 +1,12 @@
 Capybara.default_driver = (ENV['DRIVER'] || 'selenium').to_sym
 
 case Capybara.default_driver
+when :chrome
+  Capybara.register_driver :chrome do |app|
+    driver = Capybara::Selenium::Driver.new(app,
+      :browser => :chrome
+    )
+  end
 when :poltergeist
   require 'capybara/poltergeist'
 when :selenium
@@ -9,7 +15,6 @@ when :selenium
       'tunnel-identifier' => ENV['TRAVIS_JOB_NUMBER']
     )
   
-    Capybara.default_driver = :selenium
     Capybara.register_driver :selenium do |app|
       driver = Capybara::Selenium::Driver.new(app,
         :browser => :remote,
