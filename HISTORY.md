@@ -1,5 +1,8 @@
 # Master
 
+### Added
+* add support chrome
+
 # Version 0.5.0
 Release Date: 2017-05-22
 
