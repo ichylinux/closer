@@ -37,15 +37,14 @@ task :close => dependencies do |t, args|
       output = File.join(feature_dir, 'reports', 'index.html')
       FileUtils.mkdir_p(File.dirname(output))
     end
-    additional_format = "--format #{format} --out #{output}"
+    format_arg = "--format #{format} --out #{output}"
   end
 
   args = [
     "--require #{feature_dir}",
     '--guess',
     '--no-multiline',
-    '--format pretty',
-    additional_format
+    format_arg
   ]
   args << '--dry-run' if ENV['DRY_RUN'] or ENV['DR']
   if feature_dir != 'user_stories'
