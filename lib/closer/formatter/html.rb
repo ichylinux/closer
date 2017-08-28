@@ -61,8 +61,8 @@ module Closer
             @builder.p('',:id => 'totals')
             @builder.p('',:id => 'duration')
             @builder.div(:id => 'expand-collapse') do
-              @builder.p('Expand All', :id => 'expander', :class => 'pointer')
-              @builder.p('Collapse All', :id => 'collapser', :class => 'pointer')
+              @builder.p('Expand All', :id => 'expander')
+              @builder.p('Collapse All', :id => 'collapser')
             end
           end
         end
@@ -136,6 +136,10 @@ module Closer
             @builder << lines[1..-1].join("\n")
           end
         end
+      end
+
+      def before_test_case(test_case)
+        @previous_step_keyword = nil
       end
 
       def before_background(background)
@@ -281,7 +285,7 @@ module Closer
         end
         if status == :undefined
           @builder.pre do |pre|
-            # TODO: snippet text should be an event sent to the formatter so we don't
+            # TODO: snippet text should be an event sent to the formatter so we don't 
             # have this couping to the runtime.
             pre << @runtime.snippet_text(keyword,step_match.instance_variable_get("@name") || '', @step.multiline_arg)
           end
@@ -565,11 +569,13 @@ module Closer
       $(this).parent().siblings().toggle(100);
     });
 
+    $("#collapser").css('cursor', 'pointer');
     $("#collapser").click(function() {
       $(SCENARIOS).siblings().addClass('hidden');
       $('li.message').addClass('hidden');
     });
 
+    $("#expander").css('cursor', 'pointer');
     $("#expander").click(function() {
       $(SCENARIOS).siblings().removeClass('hidden');
       $('li.message').removeClass('hidden');
@@ -630,9 +636,7 @@ module Closer
       end
 
       def create_builder(io)
-        ret = Builder::XmlMarkup.new(:target => io, :indent => 0)
-        ret.instruct! :xml, :version => '1.0', :encoding => 'UTF-8'
-        ret
+        Builder::XmlMarkup.new(:target => io, :indent => 0)
       end
 
       def outline_step?(step)
