@@ -1,10 +1,16 @@
 # Master
 
+# Version 0.5.2
+Release Date: 2017-08-29
+
+### Changed
+* stop using format pretty
+
 # Version 0.5.1
 Release Date: 2017-05-23
 
 ### Added
-* add support chrome
+* add support for chrome
 
 # Version 0.5.0
 Release Date: 2017-05-22
