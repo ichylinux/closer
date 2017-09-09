@@ -1,5 +1,6 @@
 # Master
-* start using format pretty again
+* start using format pretty again.
+* capture screenshot on error when format junit is specified.
 
 # Version 0.5.2
 Release Date: 2017-08-29
