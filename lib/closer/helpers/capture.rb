@@ -45,8 +45,9 @@ module Closer
       def with_capture(options = {})
         begin
           yield
-        ensure
+        rescue => e
           options = options.merge(:force => true) unless options.has_key?(:force)
+        ensure
           capture(options)
         end
       end
