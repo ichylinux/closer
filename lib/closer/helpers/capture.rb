@@ -47,6 +47,7 @@ module Closer
           yield
         rescue Exception => e
           options = options.merge(:force => true) unless options.has_key?(:force)
+          raise e
         ensure
           capture(options)
         end
