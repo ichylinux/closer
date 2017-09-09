@@ -1,4 +1,5 @@
 # Master
+* start using format pretty again
 
 # Version 0.5.2
 Release Date: 2017-08-29

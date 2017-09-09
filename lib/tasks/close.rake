@@ -37,7 +37,7 @@ task :close => dependencies do |t, args|
       output = File.join(feature_dir, 'reports', 'index.html')
       FileUtils.mkdir_p(File.dirname(output))
     end
-    format_arg = "--format #{format} --out #{output}"
+    format_arg = "--format pretty --format #{format} --out #{output}"
   end
 
   args = [
