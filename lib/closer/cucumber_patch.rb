@@ -25,7 +25,7 @@ module Cucumber
         failures.each do |failure|
           profiles_string = custom_profiles.empty? ? '' : (custom_profiles.map{|profile| "-p #{profile}" }).join(' ') + ' '
           source = given_source ? format_string(" # " + failure.name, :comment) : ''
-          @io.puts format_string("cucumber #{profiles_string}" + failure.location.force_encoding('UTF-8'), :failed) + source
+          @io.puts format_string("cucumber #{profiles_string}" + failure.location.to_s.force_encoding('UTF-8'), :failed) + source
         end
         @io.puts
       end
