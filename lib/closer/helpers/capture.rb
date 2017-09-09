@@ -17,7 +17,7 @@ module Closer
       def capture(options = {})
         options ||= {}
         options = {:title => options} if options.is_a?(String)
-        return if ENV['FORMAT'] == 'junit' and options.fetch(:force, false)
+        return if ENV['FORMAT'] == 'junit' and not options.fetch(:force, false)
 
         url = Rack::Utils.unescape(current_url)
     
