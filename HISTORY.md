@@ -1,4 +1,9 @@
 # Master
+
+# Version 0.5.3
+Release Date: 2017-09-23
+
+### Changed
 * start using format pretty again.
 * capture screenshot on failure/error when format junit is specified.
 
