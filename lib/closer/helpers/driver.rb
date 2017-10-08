@@ -23,8 +23,6 @@ when :chrome
       driver = Capybara::Selenium::Driver.new(app,
         :browser => :chrome
       )
-
-      Closer::Drivers::FileDetector.apply(driver)
     end
   end
 when :poltergeist
@@ -49,8 +47,6 @@ when :firefox
       driver = Capybara::Selenium::Driver.new(app,
         :browser => :firefox
       )
-
-      Closer::Drivers::FileDetector.apply(driver)
     end
   end
 end

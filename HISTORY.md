@@ -1,7 +1,11 @@
 # Master
 
+# Version 0.5.4
+Release Date: 2017-10-09
+
 ### Changed
 * add support for cucumber-3.x
+* environment variable RETRY will set --retry option
 
 # Version 0.5.3
 Release Date: 2017-09-23
