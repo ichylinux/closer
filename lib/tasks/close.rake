@@ -47,6 +47,7 @@ task :close => dependencies do |t, args|
     format_arg
   ]
   args << '--dry-run' if ENV['DRY_RUN'] or ENV['DR']
+  args << "--retry #{ENV['RETRY'].to_i}" if ENV['RETRY'].to_i > 0
   if feature_dir != 'user_stories'
     args << '--order random' unless ENV['SORT']
   end
