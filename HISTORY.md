@@ -1,5 +1,8 @@
 # Master
 
+### Changed
+* add support for cucumber-3.x
+
 # Version 0.5.3
 Release Date: 2017-09-23
 
