@@ -1,4 +1,4 @@
-require 'closer/drivers/file_detector'
+require_relative 'drivers/file_detector'
 
 Capybara.default_driver = (ENV['DRIVER'] || 'firefox').to_sym
 
@@ -27,6 +27,10 @@ when :chrome
   end
 when :poltergeist
   require 'capybara/poltergeist'
+
+  Capybara.register_driver :poltergeist do |app|
+    Capybara::Poltergeist::Driver.new(app, timeout: 60)
+  end
 when :firefox
   if ENV['CI'] == 'travis'
     caps = Selenium::WebDriver::Remote::Capabilities.firefox(
