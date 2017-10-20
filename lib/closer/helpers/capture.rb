@@ -15,8 +15,7 @@ module Closer
       @@_images = []
     
       def capture(options = {})
-        options ||= {}
-        options = {:title => options} if options.is_a?(String)
+        options = normalize_options(options)
         return if ENV['FORMAT'] == 'junit' and not options.fetch(:force, false)
 
         url = Rack::Utils.unescape(current_url)
@@ -43,6 +42,7 @@ module Closer
       end
 
       def with_capture(options = {})
+        options = normalize_options(options)
         begin
           yield
         rescue Exception => e
@@ -69,6 +69,11 @@ module Closer
         end
       end
 
+      def normalize_options(options)
+        options ||= {}
+        options = {:title => options} if options.is_a?(String)
+        options
+      end
     end
   end
 end

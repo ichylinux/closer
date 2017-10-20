@@ -1,5 +1,11 @@
 # Master
 
+# Version 0.5.5
+Release Date: 2017-10-20
+
+### Fixed
+* fixed error when passing string argument to with_capture.
+
 # Version 0.5.4
 Release Date: 2017-10-09
 
