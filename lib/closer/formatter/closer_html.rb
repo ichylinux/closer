@@ -12,7 +12,7 @@ module Closer
       end
 
       def gem_dir
-        File.join(Gem.dir, 'gems')
+        ::File.join(Gem.dir, 'gems')
       end
 
       def feature_id
@@ -38,10 +38,6 @@ module Closer
         ret
       end
 
-      def should_expand
-        ['t', 'true'].include?(ENV['EXPAND'].to_s.downcase)
-      end
-
       def magic_comment?(comment_line)
         comment = comment_line.to_s
 
@@ -53,7 +49,7 @@ module Closer
       end
 
       def current_time_string
-        Time.now.instance_eval{ '%s%03d' % [strftime('%Y%m%d%H%M%S'), (usec / 1000.0).round] }
+        ::Time.now.instance_eval{ '%s%03d' % [strftime('%Y%m%d%H%M%S'), (usec / 1000.0).round] }
       end
 
       def display_keyword(keyword)
