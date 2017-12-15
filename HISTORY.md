@@ -1,5 +1,12 @@
 # Master
 
+# Version 0.6.0
+Release Date: 2017-12-15
+
+### Changed
+* drop support for cucumber-2.x
+* drop support for ruby-2.1
+
 # Version 0.5.5
 Release Date: 2017-10-20
 
