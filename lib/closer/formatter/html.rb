@@ -1,6 +1,9 @@
+# frozen_string_literal: true
 require 'erb'
 require 'cucumber/formatter/duration'
 require 'cucumber/formatter/io'
+require 'cucumber/core/report/summary'
+require 'cucumber/core/test/result'
 require 'pathname'
 require_relative 'html_builder'
 require_relative 'closer_html'
@@ -38,8 +41,7 @@ module Closer
         @delayed_messages = []
         @inside_outline        = false
         @previous_step_keyword = nil
-        @img_id = 0
-        @text_id = 0
+        @summary = ::Cucumber::Core::Report::Summary.new(runtime.configuration.event_bus)
       end
 
       def before_features(features)
@@ -530,21 +532,25 @@ module Closer
 
       def print_stat_string(_features)
         string = String.new
-        string << dump_count(@runtime.scenarios.length, 'scenario')
-        scenario_count = print_status_counts{|status| @runtime.scenarios(status)}
+        string << dump_count(@summary.test_cases.total, 'scenario')
+        scenario_count = status_counts(@summary.test_cases)
         string << scenario_count if scenario_count
         string << '<br />'
-        string << dump_count(@runtime.steps.length, 'step')
-        step_count = print_status_counts{|status| @runtime.steps(status)}
+        string << dump_count(@summary.test_steps.total, 'step')
+        step_count = status_counts(@summary.test_steps)
         string << step_count if step_count
       end
 
-      def print_status_counts
-        counts = [:failed, :skipped, :undefined, :pending, :passed].map do |status|
-          elements = yield status
-          elements.any? ? "#{elements.length} #{status}" : nil
-        end.compact
-        return " (#{counts.join(', ')})" if counts.any?
+      def status_counts(summary)
+        counts = ::Cucumber::Core::Test::Result::TYPES.map { |status|
+          count = summary.total(status)
+          [status, count]
+        }.select { |status, count|
+          count > 0
+        }.map { |status, count|
+          "#{count} #{status}"
+        }
+        "(#{counts.join(", ")})" if counts.any?
       end
 
       def dump_count(count, what, state=nil)
