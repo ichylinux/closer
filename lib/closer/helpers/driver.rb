@@ -1,3 +1,4 @@
+require 'capybara'
 require_relative 'drivers/file_detector'
 
 Capybara.default_driver = (ENV['DRIVER'] || 'firefox').to_sym
