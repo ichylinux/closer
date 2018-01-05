@@ -1,4 +1,7 @@
 # Master
+### Changed
+* run scenario without steps
+* flacky test cases are judged as pass
 
 # Version 0.6.0
 Release Date: 2017-12-15
