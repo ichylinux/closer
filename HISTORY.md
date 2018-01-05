@@ -1,4 +1,6 @@
 # Master
+
+# Version 0.6.1
 ### Changed
 * run scenario without steps
 * flacky test cases are judged as pass
