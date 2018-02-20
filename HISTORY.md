@@ -1,6 +1,14 @@
 # Master
 
+# Version 0.6.2
+Release Date: 2018-02-21
+
+### Changed
+* force rcov output to be utf-8
+
 # Version 0.6.1
+Release Date: 2018-01-05
+
 ### Changed
 * run scenario without steps
 * flacky test cases are judged as pass
