@@ -19,9 +19,8 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = '~> 2.2'
 
-  spec.add_runtime_dependency 'capybara', '~> 2.16'
+  spec.add_runtime_dependency 'capybara', '>= 2.18'
   spec.add_runtime_dependency 'cucumber', '>= 3.0', '<= 4.0'
-  spec.add_runtime_dependency 'poltergeist', '>= 1.16'
   spec.add_runtime_dependency 'selenium-webdriver', '~> 3.0'
 
   spec.add_development_dependency 'bundler', '~> 1.16'

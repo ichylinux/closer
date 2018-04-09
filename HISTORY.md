@@ -1,7 +1,11 @@
 # Master
 
+# Version 0.7.0
+Release Date: 2018-04-10
+
 ### Changed
 * support headless chrome as default driver
+  chromedriver is required to run without DRIVER environment variable.
 
 # Version 0.6.2
 Release Date: 2018-02-21
