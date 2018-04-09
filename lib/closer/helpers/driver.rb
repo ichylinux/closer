@@ -26,12 +26,6 @@ when :chrome
       )
     end
   end
-when :poltergeist
-  require 'capybara/poltergeist'
-
-  Capybara.register_driver :poltergeist do |app|
-    Capybara::Poltergeist::Driver.new(app, timeout: 60)
-  end
 when :firefox
   if ENV['CI'] == 'travis'
     caps = Selenium::WebDriver::Remote::Capabilities.firefox(
@@ -53,5 +47,22 @@ when :firefox
         :browser => :firefox
       )
     end
+  end
+when :headless_chrome
+  Capybara.register_driver :headless_chrome do |app|
+    capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
+      chromeOptions: { args: %w[headless disable-gpu] }
+    )
+    Capybara::Selenium::Driver.new(
+      app,
+      browser: :chrome,
+      desired_capabilities: capabilities
+    )
+  end
+when :poltergeist
+  require 'capybara/poltergeist'
+
+  Capybara.register_driver :poltergeist do |app|
+    Capybara::Poltergeist::Driver.new(app, timeout: 60)
   end
 end

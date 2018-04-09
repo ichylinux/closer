@@ -54,7 +54,7 @@ task :close => dependencies do |t, args|
   end
 
   options = [
-    'DRIVER=' + (ENV['DRIVER'] || 'poltergeist'),
+    'DRIVER=' + (ENV['DRIVER'] || 'headless_chrome'),
     'PAUSE=' + (ENV['PAUSE'] || '0'),
     'COVERAGE=' + (ENV['COVERAGE'] || 'false'),
     'ACCEPTANCE_TEST=true',
@@ -65,5 +65,10 @@ task :close => dependencies do |t, args|
   report_dir = File.join(feature_dir, 'reports')
   fail unless system("mkdir -p #{report_dir}")
   fail unless system("rm -Rf #{report_dir}/*")
-  fail unless system("bundle exec cucumber #{args.join(' ')} #{options.join(' ')} #{features.join(' ')}")
+
+  command = "bundle exec cucumber #{args.join(' ')} #{options.join(' ')} #{features.join(' ')}"
+  puts
+  puts command
+  puts
+  fail unless system(command)
 end

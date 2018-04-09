@@ -1,5 +1,8 @@
 # Master
 
+### Changed
+* support headless chrome as default driver
+
 # Version 0.6.2
 Release Date: 2018-02-21
 
