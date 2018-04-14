@@ -1,5 +1,8 @@
 # Master
 
+### Changed
+* use MultiTest.disable_autorun explicitly
+
 # Version 0.7.0
 Release Date: 2018-04-10
 
