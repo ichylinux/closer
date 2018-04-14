@@ -1,5 +1,8 @@
 # Master
 
+# Version 0.7.1
+Release Date: 2018-04-14
+
 ### Changed
 * use MultiTest.disable_autorun explicitly
 * set default window size for headless_chrome to 1280,720
