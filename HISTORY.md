@@ -1,5 +1,9 @@
-# Master
+# Version 0.7.2
+Release Date: 2018-05-09
+
+### Changed
 * drop support for ruby-2.2
+* require capybara explicitly
 
 # Version 0.7.1
 Release Date: 2018-04-14
