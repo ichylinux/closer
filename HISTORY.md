@@ -1,4 +1,5 @@
 # Master
+* drop support for ruby-2.2
 
 # Version 0.7.1
 Release Date: 2018-04-14

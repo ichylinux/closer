@@ -17,9 +17,9 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features|user_stories)/})
   spec.require_paths = ["lib"]
 
-  spec.required_ruby_version = '~> 2.2'
+  spec.required_ruby_version = '~> 2.3'
 
-  spec.add_runtime_dependency 'capybara', '>= 2.18'
+  spec.add_runtime_dependency 'capybara', '>= 3.0'
   spec.add_runtime_dependency 'cucumber', '>= 3.0', '<= 4.0'
   spec.add_runtime_dependency 'selenium-webdriver', '~> 3.0'
 
