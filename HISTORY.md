@@ -1,3 +1,9 @@
+# Version 0.7.3
+Release Date: 2018-05-16
+
+### Changed
+* skip taking screenshot when env CI=travis
+
 # Version 0.7.2
 Release Date: 2018-05-09
 
