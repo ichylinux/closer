@@ -1,3 +1,9 @@
+# master
+Release Date: Not Yet
+
+### Changed
+* change chromeOptions to goog:chromeOptions
+
 # Version 0.7.3
 Release Date: 2018-05-16
 
