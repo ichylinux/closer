@@ -44,14 +44,14 @@ when :firefox
   else
     Capybara.register_driver :firefox do |app|
       driver = Capybara::Selenium::Driver.new(app,
-        :browser => :firefox
+        browser: :firefox
       )
     end
   end
 when :headless_chrome
   Capybara.register_driver :headless_chrome do |app|
     capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
-      'goog:chromeOptions' => { 'args' => ['--headless', '--disable-gpu', '--window-size=1280,720'] }
+      chromeOptions: { args: %w[headless disable-gpu window-size=1280,720] }
     )
     Capybara::Selenium::Driver.new(
       app,
