@@ -43,12 +43,16 @@ task :close => dependencies do |t, args|
   args = [
     "--require #{feature_dir}",
     '--guess',
-    '--no-multiline',
-    '--no-strict',
+    '--no-multiline'
     format_arg
   ]
   args << '--dry-run' if ENV['DRY_RUN'] or ENV['DR']
-  args << "--retry #{ENV['RETRY'].to_i}" if ENV['RETRY'].to_i > 0
+
+  if ENV['RETRY'].to_i > 0
+    args << "--retry #{ENV['RETRY'].to_i}"
+    args << '--no-strict'
+  end
+
   if feature_dir != 'user_stories'
     args << '--order random' unless ENV['SORT']
   end
