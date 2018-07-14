@@ -1,8 +1,14 @@
 # master
-Release Date: Not Yet
 
-### Changed
-* change chromeOptions to goog:chromeOptions
+# Version 0.8.0
+
+Release Date: 2018-07-14
+
+### Added
+* add support for DRIVER=headless_firefox
+
+### Removed
+* drop support for DRIVER=poltergeist
 
 # Version 0.7.3
 Release Date: 2018-05-16

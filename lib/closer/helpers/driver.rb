@@ -50,19 +50,24 @@ when :firefox
   end
 when :headless_chrome
   Capybara.register_driver :headless_chrome do |app|
-    capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
+    caps = Selenium::WebDriver::Remote::Capabilities.chrome(
       chromeOptions: { args: %w[headless disable-gpu window-size=1280,720] }
     )
     Capybara::Selenium::Driver.new(
       app,
       browser: :chrome,
-      desired_capabilities: capabilities
+      desired_capabilities: caps
     )
   end
-when :poltergeist
-  require 'capybara/poltergeist'
+when :headless_firefox
+  Capybara.register_driver :headless_firefox do |app|
+    options = Selenium::WebDriver::Firefox::Options.new
+    options.args << '--headless'
 
-  Capybara.register_driver :poltergeist do |app|
-    Capybara::Poltergeist::Driver.new(app, timeout: 60)
+    Capybara::Selenium::Driver.new(
+      app,
+      browser: :firefox,
+      options: options
+    )
   end
 end
