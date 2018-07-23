@@ -53,10 +53,6 @@ task :close => dependencies do |t, args|
     args << '--no-strict'
   end
 
-  if feature_dir != 'user_stories'
-    args << '--order random' unless ENV['SORT']
-  end
-
   options = [
     'DRIVER=' + (ENV['DRIVER'] || 'headless_chrome'),
     'PAUSE=' + (ENV['PAUSE'] || '0'),
@@ -65,6 +61,14 @@ task :close => dependencies do |t, args|
     'EXPAND=' + (ENV['EXPAND'] || 'true'),
     'COMMAND_NAME=' + (ENV['COMMAND_NAME'] || feature_dir.split('_').map{|a| a.capitalize }.join)
   ]
+
+  if feature_dir == 'user_stories'
+    options << 'USER_STORY=' + 'true'
+    options << 'RESUME_STORY_FROM=' + features.first
+    features = ['user_stories']
+  else
+    args << '--order random' unless ENV['SORT']
+  end
 
   report_dir = File.join(feature_dir, 'reports')
   fail unless system("mkdir -p #{report_dir}")

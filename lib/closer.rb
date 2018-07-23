@@ -1,5 +1,7 @@
 require 'closer/version'
 require 'closer/config'
+require 'closer/cucumber_ext'
+require 'closer/helpers'
 
 module Closer
 

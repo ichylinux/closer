@@ -1,4 +1,9 @@
-# master
+# Version 0.9.0
+
+Release Date: 2018-07-23
+
+### Added
+* when running user stories, snapshot is loaded/dumped and can resume from a failed feature.
 
 # Version 0.8.0
 
