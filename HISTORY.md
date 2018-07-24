@@ -1,6 +1,6 @@
-# Version 0.9.1
+# Version 0.9.2
 
-Release Date: 2018-07-24
+Release Date: 2018-07-25
 
 #### Changed
 * fix runtime dependency
