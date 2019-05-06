@@ -1,3 +1,10 @@
+# Version 0.9.3
+
+Release Date: 2019-05-07
+
+#### Changed
+* use port 3000 when running tests on travi-ci.
+
 # Version 0.9.2
 
 Release Date: 2018-07-25
