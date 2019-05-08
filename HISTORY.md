@@ -1,3 +1,10 @@
+# Version 0.9.4
+
+Release Date: 2019-05-09
+
+#### Added
+* environment variable PLATFORM to specify platform of saucelabs
+
 # Version 0.9.3
 
 Release Date: 2019-05-07
