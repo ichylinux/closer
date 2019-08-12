@@ -37,7 +37,7 @@ else
   when :headless_chrome
     Capybara.register_driver :headless_chrome do |app|
       caps = Selenium::WebDriver::Remote::Capabilities.chrome(
-        chromeOptions: { args: %w[headless disable-gpu window-size=1280,720] }
+        chromeOptions: { args: %w[headless disable-gpu window-size=1280,720], w3c: false }
       )
       Capybara::Selenium::Driver.new(
         app,
