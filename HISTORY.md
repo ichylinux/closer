@@ -1,3 +1,8 @@
+# master
+
+### Removed
+* drop support for ruby-2.3
+
 # Version 0.9.4
 
 Release Date: 2019-05-09
