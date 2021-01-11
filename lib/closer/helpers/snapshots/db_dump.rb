@@ -31,7 +31,8 @@ class DbDump
   end
 
   def dump_mysql(dump_dir)
-    config = YAML.load_file(File.join('config', 'database.yml'))[Rails.env]
+    config = YAML.load(ERB.new(File.read('config/database.yml'), 0, '-').result)[Rails.env]
+
     host = config['host'] || 'localhost'
     database = config['database']
     user = config['username']
@@ -44,7 +45,8 @@ class DbDump
   end
   
   def load_mysql(dump_file)
-    config = YAML.load_file(File.join('config', 'database.yml'))[Rails.env]
+    config = YAML.load(ERB.new(File.read('config/database.yml'), 0, '-').result)[Rails.env]
+
     host = config['host'] || 'localhost'
     database = config['database']
     user = config['username']
