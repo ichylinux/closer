@@ -1,4 +1,14 @@
-# master
+# 0.9.6
+Release Date: 2020-01-11
+
+### fixed
+* load database.yml as ERB template
+
+### Removed
+* drop support for ruby-2.4
+
+# 0.9.5
+Release Date: 2019-08-12
 
 ### Removed
 * drop support for ruby-2.3
