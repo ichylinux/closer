@@ -15,7 +15,7 @@ if ENV['CI'] == 'travis'
     driver = Capybara::Selenium::Driver.new(app,
       :browser => :remote,
       :url => "http://#{ENV['SAUCE_USERNAME']}:#{ENV['SAUCE_ACCESS_KEY']}@ondemand.saucelabs.com/wd/hub",
-      :desired_capabilities => caps
+      :capabilities => caps
     )
 
     Closer::Drivers::FileDetector.apply(driver)
@@ -37,12 +37,12 @@ else
   when :headless_chrome
     Capybara.register_driver :headless_chrome do |app|
       caps = Selenium::WebDriver::Remote::Capabilities.chrome(
-        chromeOptions: { args: %w[headless disable-gpu window-size=1280,720], w3c: false }
+        'goog:chromeOptions': { args: %w[headless disable-gpu window-size=1280,720] }
       )
       Capybara::Selenium::Driver.new(
         app,
         browser: :chrome,
-        desired_capabilities: caps
+        capabilities: caps
       )
     end
   when :headless_firefox
