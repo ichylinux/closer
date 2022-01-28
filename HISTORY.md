@@ -1,3 +1,9 @@
+# 0.10.0
+Release Date: 2021-01-28
+
+### Added
+* add support for selenium-webdriver v4
+
 # 0.9.6
 Release Date: 2020-01-11
 
