@@ -1,3 +1,9 @@
+# 0.11.0
+Release Date: 2023-09-01
+
+### Removed
+* drop support for ruby-2.5, 2.6
+
 # 0.10.1
 Release Date: 2021-01-28
 
