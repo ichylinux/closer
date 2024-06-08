@@ -25,7 +25,7 @@ else
   when :chrome
     Capybara.register_driver :chrome do |app|
       driver = Capybara::Selenium::Driver.new(app,
-        :browser => :chrome
+        browser: :chrome
       )
     end
   when :firefox
