@@ -39,7 +39,7 @@ module Closer
         image_tag = "<img #{attrs.map{|k, v| "#{k}=\"#{v}\"" }.join(' ')} />"
 
         if options[:flash]
-          puts image_tag
+          log(image_tag)
         else
           @@_images << image_tag
         end
@@ -68,7 +68,7 @@ module Closer
 
       def flash_image_tags
         if @@_images.size > 0
-          puts @@_images.join("\n")
+          log(@@_images.join("\n"))
           @@_images.clear
         end
       end
