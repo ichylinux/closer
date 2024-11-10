@@ -4,7 +4,7 @@ if ENV['USER_STORY']
   
     Before do |scenario|
       db_dump = DbDump.instance
-      feature_file = scenario.feature.location.file
+      feature_file = scenario.location.file
       
       if ENV['RESUME_STORY_FROM'].to_s == feature_file
         if db_dump.current_feature.nil?
