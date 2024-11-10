@@ -3,9 +3,9 @@ require 'simplecov-rcov'
 module Closer
   module Coverage
     class RcovFormatter < SimpleCov::Formatter::RcovFormatter
-    
+
       private
-    
+
       def write_file(template, output_filename, binding)
         rcov_result = template.result(binding).force_encoding('UTF-8')
     
