@@ -19,9 +19,9 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = '~> 2.7'
 
-  spec.add_runtime_dependency 'cucumber', '>= 3.0', '< 9.0'
-  spec.add_runtime_dependency 'capybara', '>= 3.0'
-  spec.add_runtime_dependency 'selenium-webdriver', '>= 4.8', '<= 5.0'
+  spec.add_dependency 'cucumber', '>= 4.0', '< 9.0'
+  spec.add_dependency 'capybara', '>= 3.0'
+  spec.add_dependency 'selenium-webdriver', '>= 4.8', '<= 5.0'
 
   spec.add_development_dependency 'minitest', '~> 5.10'
   spec.add_development_dependency 'rake', '~> 13.0'

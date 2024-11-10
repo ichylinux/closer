@@ -1,3 +1,8 @@
+# 0.13.0
+Release Date: 2024-11-10
+* add support for cucumber-4
+* drop support for cucumber-3
+
 # 0.11.0
 Release Date: 2023-09-01
 

@@ -27,7 +27,7 @@ task :close => dependencies do |t, args|
   end
   puts "using features in directory #{feature_dir}" unless feature_dir == 'features'
 
-  format = ENV['FORMAT'] || 'Closer::Formatter::Html'
+  format = ENV['FORMAT'] || 'Closer::Formatter::HTML'
   unless format.empty?
     case format
     when 'junit'
