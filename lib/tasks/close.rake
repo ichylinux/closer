@@ -44,6 +44,7 @@ task :close => dependencies do |t, args|
     "--require #{feature_dir}",
     '--guess',
     '--no-multiline',
+    '--publish-quiet',
     format_arg
   ]
   args << '--dry-run' if ENV['DRY_RUN'] or ENV['DR']
