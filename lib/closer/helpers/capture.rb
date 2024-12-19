@@ -58,12 +58,7 @@ module Closer
       end
 
       def resize_window(width, height)
-        case Capybara.current_driver
-        when :poltergeist
-          Capybara.current_session.driver.resize(width, height)
-        when :selenium
-          Capybara.current_session.driver.browser.manage.window.resize_to(width, height)
-        end
+        page.driver.browser.manage.window.resize_to(width, height)
       end
 
       def flash_image_tags

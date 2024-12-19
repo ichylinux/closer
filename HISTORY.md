@@ -1,4 +1,8 @@
 # 0.13.1
+Release Date: 2024-12-20
+* drop support for poltergeist
+
+# 0.13.1
 Release Date: 2024-11-10
 * use --publish-quiet option
 
