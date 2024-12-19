@@ -27,12 +27,12 @@ module Closer
         @@_screen_count += 1
 
         image = File.join(IMAGE_DIR, "#{@@_screen_count}.png")
-        page.driver.save_screenshot(image, :full => true)
+        page.driver.save_screenshot(image, full: true)
 
         attrs = {
-          :class => 'screenshot',
-          :src => "#{File.basename(IMAGE_DIR)}/#{File.basename(image)}",
-          :alt => url
+          class: 'screenshot',
+          src: "#{File.basename(IMAGE_DIR)}/#{File.basename(image)}",
+          alt: url
         }
         attrs[:title] = options[:title] if options[:title]
 

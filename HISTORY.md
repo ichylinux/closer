@@ -1,4 +1,4 @@
-# 0.13.1
+# 0.13.2
 Release Date: 2024-12-20
 * drop support for poltergeist
 
