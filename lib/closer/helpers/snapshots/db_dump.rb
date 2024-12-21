@@ -41,7 +41,7 @@ class DbDump
     filepath = File.join(dump_dir, "#{database}-#{Time.now.strftime('%Y-%m-%d_%H%M')}.dump.gz")
 
     FileUtils.mkdir_p(File.dirname(filepath))
-    system("mysqldump -u #{user} -p#{password} -h #{host} #{database} | gzip > #{filepath}")
+    system("mysqldump -u #{user} -p#{password} -h #{host} #{database} --no-tablespaces | gzip > #{filepath}")
   end
   
   def load_mysql(dump_file)

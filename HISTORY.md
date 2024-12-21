@@ -1,3 +1,6 @@
+# master
+* add --no-tablespaces option to mysqldump
+
 # 0.13.2
 Release Date: 2024-12-20
 * drop support for poltergeist
