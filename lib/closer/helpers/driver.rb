@@ -5,48 +5,60 @@ Dir::glob(File.join(File.dirname(__FILE__), 'drivers', '*.rb')).each do |file|
   require_relative "drivers/#{File.basename(file)}"
 end
 
-Capybara.default_driver = (ENV['DRIVER'] || 'firefox').to_sym
+Capybara.default_driver = (ENV['DRIVER'] || 'firefox')
+Capybara.default_driver.split('_').map(&:to_sym)
 
-case Capybara.default_driver
-when :chrome
-  Capybara.register_driver :chrome do |app|
-    driver = Capybara::Selenium::Driver.new(app,
-      browser: :chrome
-    )
-  end
-when :firefox
-  Capybara.register_driver :firefox do |app|
-    driver = Capybara::Selenium::Driver.new(app,
-      browser: :firefox
-    )
-  end
-when :headless_chrome
-  Capybara.register_driver :headless_chrome do |app|
-    Capybara::Selenium::Driver.new(
-      app,
-      browser: :chrome,
-      options: Closer::Drivers::Chrome.options
-    )
-  end
-when :headless_firefox
-  Capybara.register_driver :headless_firefox do |app|
-    options = Selenium::WebDriver::Firefox::Options.new
-    options.args << '--headless'
+browser = ENV['DRIVER'] || 'firefox'
+boottype = 'headless' if ENV['HEADLESS']
+boottype = 'remote' if ENV['REMOTE']
+Capybara.default_driver = [boottype, browser].compact.join('_').to_sym
 
-    Capybara::Selenium::Driver.new(
-      app,
-      browser: :firefox,
-      options: options
-    )
+case browser
+when 'chrome'
+  case boottype
+  when 'headless'
+    Capybara.register_driver :headless_chrome do |app|
+      Capybara::Selenium::Driver.new(
+        app,
+        browser: :chrome,
+        options: Closer::Drivers::Chrome.options
+      )
+    end
+  when 'remote'
+    Capybara.register_driver :remote_chrome do |app|
+      Capybara::Selenium::Driver.new(
+        app,
+        browser: :remote,
+        url: 'http://127.0.0.1:4444/wd/hub',
+        options: Closer::Drivers::Chrome.options
+      )
+    end
+  else
+    Capybara.register_driver :chrome do |app|
+      driver = Capybara::Selenium::Driver.new(app,
+        browser: :chrome
+      )
+    end
   end
-when :remote_chrome
-  Capybara.register_driver :remote_chrome do |app|
+when 'firefox'
+  case boottype
+  when 'headless'
+    Capybara.register_driver :headless_firefox do |app|
+      options = Selenium::WebDriver::Firefox::Options.new
+      options.args << '--headless'
 
-    Capybara::Selenium::Driver.new(
-      app,
-      browser: :remote,
-      url: 'http://127.0.0.1:4444/wd/hub',
-      options: Closer::Drivers::Chrome.options
-    )
+      Capybara::Selenium::Driver.new(
+        app,
+        browser: :firefox,
+        options: options
+      )
+    end
+  else
+    Capybara.register_driver :firefox do |app|
+      driver = Capybara::Selenium::Driver.new(
+        app,
+        browser: :firefox
+      )
+    end
   end
 end
