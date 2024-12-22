@@ -19,7 +19,6 @@ module Closer
 
         unless options.fetch(:force, false)
           return if ENV['FORMAT'] == 'junit'
-          return if ENV['CI'] == 'travis'
         end
 
         url = Rack::Utils.unescape(current_url)

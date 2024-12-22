@@ -1,5 +1,6 @@
 # master
 * add --no-tablespaces option to mysqldump
+* drop support for travis
 
 # 0.13.2
 Release Date: 2024-12-20

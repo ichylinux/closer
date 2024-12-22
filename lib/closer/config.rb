@@ -8,6 +8,10 @@ class Closer::Config
     ENV['MERGE_TIMEOUT'] || 3600
   end
 
+  def remote?
+    true_value?(ENV['REMOTE'])
+  end
+
   private
 
   def true_value?(value)
