@@ -1,7 +1,9 @@
 require 'capybara'
 require 'selenium-webdriver'
 
-require_relative 'drivers/file_detector'
+Dir::glob(File.join(File.dirname(__FILE__), 'drivers', '*.rb')).each do |file|
+  require_relative "drivers/#{File.basename(file)}"
+end
 
 Capybara.default_driver = (ENV['DRIVER'] || 'firefox').to_sym
 
@@ -20,14 +22,10 @@ when :firefox
   end
 when :headless_chrome
   Capybara.register_driver :headless_chrome do |app|
-    options = Selenium::WebDriver::Chrome::Options.new
-    options.add_argument('headless')
-    options.add_argument('disable-gpu')
-    options.add_argument('no-sandbox')
     Capybara::Selenium::Driver.new(
       app,
       browser: :chrome,
-      options: options
+      options: Closer::Drivers::Chrome.options
     )
   end
 when :headless_firefox
@@ -39,6 +37,16 @@ when :headless_firefox
       app,
       browser: :firefox,
       options: options
+    )
+  end
+when :remote_chrome
+  Capybara.register_driver :remote_chrome do |app|
+
+    Capybara::Selenium::Driver.new(
+      app,
+      browser: :remote,
+      url: 'http://127.0.0.1:4444/wd/hub',
+      options: Closer::Drivers::Chrome.options
     )
   end
 end
