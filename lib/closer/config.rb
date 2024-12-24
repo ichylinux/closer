@@ -12,6 +12,10 @@ class Closer::Config
     true_value?(ENV['REMOTE'])
   end
 
+  def headless?
+    true_value?(ENV['HEADLESS'])
+  end
+
   private
 
   def true_value?(value)

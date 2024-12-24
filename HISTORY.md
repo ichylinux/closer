@@ -1,3 +1,7 @@
+# 0.14.0
+Release Date: 2024-12-24
+* change headless is false by default
+
 # 0.13.4
 Release Date: 2024-12-24
 * add --no-tablespaces option to mysqldump
