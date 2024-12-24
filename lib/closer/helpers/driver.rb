@@ -5,12 +5,9 @@ Dir::glob(File.join(File.dirname(__FILE__), 'drivers', '*.rb')).each do |file|
   require_relative "drivers/#{File.basename(file)}"
 end
 
-Capybara.default_driver = (ENV['DRIVER'] || 'firefox')
-Capybara.default_driver.split('_').map(&:to_sym)
-
-browser = ENV['DRIVER'] || 'firefox'
+browser = ENV['DRIVER']
 boottype = 'headless' if ENV['HEADLESS']
-boottype = 'remote' if ENV['REMOTE']
+boottype = 'remote' if ENV['REMOTE'] # always headless
 Capybara.default_driver = [boottype, browser].compact.join('_').to_sym
 
 case browser
