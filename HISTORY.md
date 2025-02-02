@@ -1,6 +1,10 @@
+# 0.15.0
+Release Date: 2025-02-02
+* autofill.profile_enabled is false by default
+
 # 0.14.0
 Release Date: 2024-12-24
-* change headless is false by default
+* headless is false by default
 
 # 0.13.4
 Release Date: 2024-12-24

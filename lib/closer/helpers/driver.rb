@@ -19,7 +19,7 @@ when 'chrome'
       Capybara::Selenium::Driver.new(
         app,
         browser: :chrome,
-        options: Closer::Drivers::Chrome.options
+        options: Closer::Drivers::Chrome.options(headless: true)
       )
     end
   when 'remote'
@@ -34,7 +34,8 @@ when 'chrome'
   else
     Capybara.register_driver :chrome do |app|
       driver = Capybara::Selenium::Driver.new(app,
-        browser: :chrome
+        browser: :chrome,
+        options: Closer::Drivers::Chrome.options
       )
     end
   end
