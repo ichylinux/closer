@@ -1,3 +1,7 @@
+# 0.15.1
+Release Date: 2025-02-09
+* Capybara.default_max_wait_time via environment variable DEFAULT_MAX_WAIT_TIME
+
 # 0.15.0
 Release Date: 2025-02-02
 * autofill.profile_enabled is false by default

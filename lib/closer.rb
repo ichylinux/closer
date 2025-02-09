@@ -1,14 +1,13 @@
-require 'closer/version'
-require 'closer/config'
-require 'closer/cucumber_ext'
-require 'closer/helpers'
-
 module Closer
+  require 'closer/version'
+  require 'closer/config'
 
   def self.config
     @config ||= Closer::Config.new
   end
 
+  require 'closer/cucumber_ext'
+  require 'closer/helpers'
 end
 
 if Closer.config.coverage_enabled?
