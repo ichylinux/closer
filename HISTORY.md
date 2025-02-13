@@ -1,3 +1,7 @@
+# 0.15.2
+Release Date: 2025-02-13
+* support environment variabel REMOTE for selenium grid
+
 # 0.15.1
 Release Date: 2025-02-09
 * Capybara.default_max_wait_time via environment variable DEFAULT_MAX_WAIT_TIME

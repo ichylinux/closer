@@ -57,6 +57,7 @@ task :close => dependencies do |t, args|
   options = [
     'DRIVER=' + (ENV['DRIVER'] || 'chrome'),
     'HEADLESS=' + (ENV['HEADLESS'] || 'false'),
+    'REMOTE=' + (ENV['REMOTE'] || 'false'),
     'PAUSE=' + (ENV['PAUSE'] || '0'),
     'COVERAGE=' + (ENV['COVERAGE'] || 'false'),
     'ACCEPTANCE_TEST=true',
