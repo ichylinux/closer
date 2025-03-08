@@ -22,7 +22,7 @@ module Closer
     end
 
     def resume_stroy?
-      !resume_stroy_from.empty?
+      !resume_stroy_from&.empty?
     end
 
     def resume_stroy_from
