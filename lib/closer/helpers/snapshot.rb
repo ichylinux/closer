@@ -7,8 +7,10 @@ if ENV['USER_STORY']
       feature_file = scenario.location.file
       
       if Closer.config.resume_stroy_from == feature_file
-        db_dump.current_feature = feature_file
-        db_dump.load('tmp/user_stories')
+        if db_dump.current_feature.nil?
+          db_dump.current_feature = feature_file
+          db_dump.load('tmp/user_stories')
+        end
       else
         # 直前のDBをダンプしておく
         if db_dump.current_feature != feature_file
