@@ -25,7 +25,7 @@ task :close => dependencies do |t, args|
     end
     feature_dir = File.basename(feature_dir)
   end
-  puts "using features in directory #{feature_dir}" unless feature_dir == 'features'
+  puts "[closer] using features in directory #{feature_dir}" unless feature_dir == 'features'
 
   format = ENV['FORMAT'] || 'Closer::Formatter::HTML'
   unless format.empty?
