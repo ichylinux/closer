@@ -6,7 +6,6 @@ module Closer
     @config ||= Closer::Config.new
   end
 
-  require 'closer/cucumber_ext'
   require 'closer/helpers'
 end
 
