@@ -6,6 +6,7 @@ module Closer
     @config ||= Closer::Config.new
   end
 
+  require 'closer/filters'
   require 'closer/helpers'
 end
 

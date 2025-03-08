@@ -21,6 +21,14 @@ module Closer
       ENV['DEFAULT_MAX_WAIT_TIME'].to_i.nonzero? || 2 # Capybara default is 2 seconds
     end
 
+    def resume_stroy?
+      !resume_stroy_from.empty?
+    end
+
+    def resume_stroy_from
+      ENV['RESUME_STORY_FROM'].to_s.split(':').first
+    end
+
     private
 
     def true_value?(value)

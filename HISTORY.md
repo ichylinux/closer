@@ -1,3 +1,7 @@
+# 0.16.0
+Release Date: 2025-03-08
+* fix user story resume
+
 # 0.15.2
 Release Date: 2025-02-13
 * support environment variabel REMOTE for selenium grid

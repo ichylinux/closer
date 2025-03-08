@@ -11,6 +11,7 @@ class DbDump
     db ||= Dir.glob(File.join(dir, '*.dump.gz')).first
 
     if db
+      puts "[closer] loading db dump #{db}."
       raise 'DBロードに失敗しました。' unless load_mysql(db)
     end
   end
