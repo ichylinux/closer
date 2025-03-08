@@ -6,7 +6,7 @@ if ENV['USER_STORY']
       db_dump = DbDump.instance
       feature_file = scenario.location.file
       
-      if Closer.config.resume_stroy_from == feature_file
+      if Closer.config.resume_story_from == feature_file
         if db_dump.current_feature.nil?
           db_dump.current_feature = feature_file
           db_dump.load('tmp/user_stories')

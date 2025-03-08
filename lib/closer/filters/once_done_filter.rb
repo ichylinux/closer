@@ -1,9 +1,9 @@
 require 'cucumber/core/filter'
 
-if Closer.config.resume_stroy?
+if Closer.config.resume_story?
   CloserOnceDone = Cucumber::Core::Filter.new do
     def test_case(test_case)
-      feature_file_to_resume =  Closer.config.resume_stroy_from
+      feature_file_to_resume =  Closer.config.resume_story_from
       unless feature_file_to_resume.empty?
         activated_steps = []
         test_case.test_steps.each do |test_step|
