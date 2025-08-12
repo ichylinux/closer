@@ -1,3 +1,7 @@
+# 0.17.0
+Release Date: 2025-08-12
+* add support for ruby-3.0, 3.1, 3.2
+
 # 0.16.2
 Release Date: 2025-03-08
 * fix user story resume

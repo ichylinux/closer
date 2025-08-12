@@ -17,7 +17,7 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features|user_stories)/})
   spec.require_paths = ["lib"]
 
-  spec.required_ruby_version = '~> 2.7'
+  spec.required_ruby_version = '>= 2.7', '< 3.3'
 
   spec.add_dependency 'cucumber', '>= 7.1', '< 9.0'
   spec.add_dependency 'capybara', '>= 3.0'
