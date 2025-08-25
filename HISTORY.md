@@ -1,3 +1,7 @@
+# 0.17.2
+Release Date: 2025-08-25
+* change YAML.load to YAML.safe_load with `aliases: true`
+
 # 0.17.1
 Release Date: 2025-08-17
 * add support for cucumber-9
