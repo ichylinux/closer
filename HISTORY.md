@@ -1,3 +1,7 @@
+# 0.18.0
+Release Date: 2025-08-27
+* drop support for ruby-2.7
+
 # 0.17.3
 Release Date: 2025-08-27
 * change YAML.load to YAML.safe_load with `aliases: true`
