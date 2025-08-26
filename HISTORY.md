@@ -1,5 +1,5 @@
-# 0.17.2
-Release Date: 2025-08-25
+# 0.17.3
+Release Date: 2025-08-27
 * change YAML.load to YAML.safe_load with `aliases: true`
 
 # 0.17.1

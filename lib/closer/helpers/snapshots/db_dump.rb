@@ -46,7 +46,7 @@ class DbDump
   end
   
   def load_mysql(dump_file)
-    config = YAML.safe_load(ERB.new(File.read('config/database.yml'), trim_mode: '-', aliases: true).result)[Rails.env]
+    config = YAML.safe_load(ERB.new(File.read('config/database.yml'), trim_mode: '-').result, aliases: true)[Rails.env]
 
     host = config['host'] || 'localhost'
     database = config['database']
