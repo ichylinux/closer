@@ -26,7 +26,7 @@ module Closer
         @@_screen_count += 1
 
         image = File.join(IMAGE_DIR, "#{@@_screen_count}.png")
-        page.driver.save_screenshot(image, full: true)
+        page.driver.save_screenshot(image)
 
         attrs = {
           class: 'screenshot',

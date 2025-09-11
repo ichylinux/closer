@@ -1,3 +1,7 @@
+# 0.18.1
+Release Date: 2025-09-12
+* fix unknown keyword: :full (ArgumentError) with capybara-3.40.0
+
 # 0.18.0
 Release Date: 2025-08-27
 * drop support for ruby-2.7
