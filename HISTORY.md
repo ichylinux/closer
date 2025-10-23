@@ -1,3 +1,7 @@
+# 0.18.2
+Release Date: 2025-10-24
+* add option disable-password-manager for chrome
+
 # 0.18.1
 Release Date: 2025-09-12
 * fix unknown keyword: :full (ArgumentError) with capybara-3.40.0
