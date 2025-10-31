@@ -1,3 +1,7 @@
+# 0.18.3
+Release Date: 2025-11-01
+* add support for ruby-3.3, 3.4
+
 # 0.18.2
 Release Date: 2025-10-24
 * add option disable-password-manager for chrome
