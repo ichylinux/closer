@@ -19,7 +19,8 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = '>= 3.0', '< 3.5'
 
-  spec.add_dependency 'cucumber', '>= 7.1', '< 10.0'
+  spec.add_dependency 'cucumber', '>= 7.1', '< 11.0'
+  spec.add_dependency 'cucumber-cucumber-expressions', '~> 18.1'
   spec.add_dependency 'capybara', '>= 3.0'
   spec.add_dependency 'selenium-webdriver', '>= 4.8', '<= 5.0'
 
